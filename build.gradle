@@ -27,7 +27,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.example.ehospital'
-    mainClass = 'com.example.ehospital.HelloApplication'
+    mainClass = 'com.example.ehospital.Main'
 }
 
 javafx {
@@ -36,7 +36,7 @@ javafx {
 }
 
 dependencies {
-    implementation 'com.jfoenix:jfoenix:9.0.10'
+
 }
 
 test {
