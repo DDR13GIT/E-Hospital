@@ -1,1 +1,1 @@
-create database EHdb;
+select * from LoginInfo

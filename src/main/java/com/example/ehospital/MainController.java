@@ -32,9 +32,7 @@ public class MainController {
 
 
     public void SignInAction(ActionEvent actionEvent) {
-        System.out.println(IdField.getText());
-        System.out.println(PasswordField.getText());
-
+        System.out.println("Sign in button clicked");
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = "jdbc:sqlserver://localhost:1433;user=team;password=p@ssword13;databaseName=EHdb";
@@ -43,11 +41,7 @@ public class MainController {
             String pass =  PasswordField.getText();
 
 
-            System.out.println("printing from here:"+ uname);
-            System.out.println("printing from here:"+ pass);
-
             if (uname.equals("") || pass.equals("")) {
-//                JOptionPane.showMessageDialog(null,);
                 System.out.println("Please Fill up all the information");
 
 
@@ -60,12 +54,13 @@ public class MainController {
                 pst.setString(2, pass);
                 rs = pst.executeQuery();
                 if (rs.next()) {
-                    Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-                    Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-
+//                    Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+//                    Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
+//                    Scene scene = new Scene(root);
+//                    stage.setScene(scene);
+//                    stage.show();
+                    AnchorPane dashboardPane = FXMLLoader.load(getClass().getResource("DASHBOARD.fxml"));
+                    loginpane.getChildren().setAll(dashboardPane);
 
                 } else {
                     System.out.println("Please Enter Correct email Or Password");
