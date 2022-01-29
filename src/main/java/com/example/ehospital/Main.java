@@ -15,7 +15,6 @@ public class Main extends Application {
         stage.setTitle("E-Hospital-Hospital Management System");
         stage.setScene(scene);
         stage.show();
-        stage.setMaximized(true);
     }
 
     public static void main(String[] args) {
