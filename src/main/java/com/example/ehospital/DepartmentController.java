@@ -9,6 +9,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class DepartmentController implements Initializable {
@@ -31,17 +34,45 @@ public class DepartmentController implements Initializable {
     @FXML
     private TableColumn<DepartmentTableModel, String> SerialNoFxid;
 
-
+    Connection conn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DepartmentNameFxid.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
-        DescriptionFxid.setCellValueFactory(new PropertyValueFactory<>("description"));
-        StatusFxid.setCellValueFactory(new PropertyValueFactory<>("status"));
-        DepartmentIdFxid.setCellValueFactory(new PropertyValueFactory<>("departmentId"));
-        SerialNoFxid.setCellValueFactory(new PropertyValueFactory<>("serialNo"));
+        DatabaseConnect.Connection();
+        conn = DatabaseConnect.con;
 
+        fetch_info();
 
     }
+
+    public void fetch_info() {
+
+        DepartmentNameFxid.setCellValueFactory(new PropertyValueFactory("DepartmentName"));
+        DescriptionFxid.setCellValueFactory(new PropertyValueFactory("Description"));
+        StatusFxid.setCellValueFactory(new PropertyValueFactory("Status"));
+        DepartmentIdFxid.setCellValueFactory(new PropertyValueFactory("DepartmentId"));
+        SerialNoFxid.setCellValueFactory(new PropertyValueFactory<>("SerialNo"));
+
+        try {
+            Statement st = conn.createStatement();
+            String fetch_query = "select * from Department";
+            ResultSet rs = st.executeQuery(fetch_query);
+
+            while (rs.next()) {
+
+                String departmentName = rs.getString("DepartmentName");
+                String description = rs.getString("Description");
+                String departmentID = rs.getString("DepartmentID");
+                String status = rs.getString("Status");
+                int serialNo = rs.getInt("SerialNo");
+                departmentList.add(new DepartmentTableModel(departmentName, description, status, departmentID, serialNo));
+            }
+            DepartmentTableFxid.setItems(departmentList);
+        } catch (Exception e) {
+
+        }
+
+    }
+
 }
 

@@ -48,7 +48,7 @@ public class MainController {
                 pst.setString(2, pass);
                 rs = pst.executeQuery();
                 if (rs.next()) {
-                    AnchorPane dashboardPane = FXMLLoader.load(getClass().getResource("DASHBOARD.fxml"));
+                    AnchorPane dashboardPane = FXMLLoader.load(getClass().getResource("department.fxml"));
                     loginpane.getChildren().setAll(dashboardPane);
 
                 } else {
