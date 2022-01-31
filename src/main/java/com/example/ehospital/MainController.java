@@ -1,5 +1,6 @@
 package com.example.ehospital;
 
+import javafx.application.Preloader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
@@ -82,6 +84,10 @@ public class MainController  implements Initializable {
 
                 } else {
                     System.out.println("Please Enter Correct email Or Password");
+                    Notifications.create()
+                            .title("Warning")
+                            .text("Invalid ID or Password")
+                            .showError();
 
 
                 }

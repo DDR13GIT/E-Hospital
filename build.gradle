@@ -38,6 +38,9 @@ javafx {
 dependencies {
     implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre8'
 
+    implementation group: 'org.controlsfx', name: 'controlsfx', version: '11.1.1'
+
+
 
 }
 
