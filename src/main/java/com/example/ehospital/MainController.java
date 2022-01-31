@@ -1,21 +1,31 @@
 package com.example.ehospital;
 
+import javafx.application.Preloader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
+import java.util.EventObject;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController  implements Initializable {
 
     @FXML
     public TextField IdField;
@@ -23,6 +33,10 @@ public class MainController {
   public PasswordField  PasswordField;
     @FXML
     public AnchorPane loginpane;
+
+
+    @FXML
+    public ComboBox  comb;
     public Button SigninBtn;
     PreparedStatement pst = null;
     ResultSet rs;
@@ -37,35 +51,46 @@ public class MainController {
             Connection con = DriverManager.getConnection(url);
             String uname = IdField.getText();
             String pass =  PasswordField.getText();
+            String s = comb.getSelectionModel().getSelectedItem().toString();
 
 
-            if (uname.equals("") || pass.equals("")) {
+            if (uname.equals("") || pass.equals("")||s.equals("")) {
                 System.out.println("Please Fill up all the information");
 
 
             } else {
-                String query = "SELECT * FROM  LoginInfo WHERE UserName=? and Password=?";
+                String query = "SELECT * FROM  LoginInfo WHERE UserName=? and Password=? and UserRole=?";
 
 
                 pst = con.prepareStatement(query);
                 pst.setString(1, uname);
                 pst.setString(2, pass);
+                pst.setString(3, s);
                 rs = pst.executeQuery();
                 if (rs.next()) {
-//                    AnchorPane dashboardPane = FXMLLoader.load(getClass().getResource("department.fxml"));
-//                    loginpane.getChildren().setAll(dashboardPane);
 
-                    Parent root = FXMLLoader.load(getClass().getResource("department.fxml"));
-                    Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
-                    Scene scene = new Scene(root);
-
-                    stage.setScene(scene);
-                    stage.show();
-
-
+                    if(s.equals("Admin")) {
+                        Parent root = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
+                        Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    }else if(s.equals("Doctor")){
+                        Parent root = FXMLLoader.load(getClass().getResource("DoctorDashboard.fxml"));
+                        Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
 
                 } else {
                     System.out.println("Please Enter Correct email Or Password");
+                    Notifications.create()
+                            .title("Warning")
+                            .text("Invalid ID or Password")
+                            .showError();
+
+
                 }
             }
 
@@ -79,4 +104,16 @@ public class MainController {
 
 
     }
+
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<String> list = FXCollections.observableArrayList("Admin","Doctor");
+        comb.setItems(list);
+
+    }
+
+
 }

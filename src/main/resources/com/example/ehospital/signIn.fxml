@@ -15,8 +15,7 @@
 <AnchorPane fx:id="loginpane" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.MainController">
    <children>
       <ImageView fitHeight="849.0" fitWidth="1500.0" layoutX="355.0" layoutY="125.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Development Project 3.1" AnchorPane.bottomAnchor="63.0" AnchorPane.rightAnchor="120.0" />
-      <Pane blendMode="SRC_ATOP" opacity="0.96" prefHeight="800.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane accessibleRole="COMBO_BOX" blendMode="SRC_ATOP" layoutX="1061.0" opacity="0.96" prefHeight="800.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField id="username" fx:id="IdField" layoutX="80.0" layoutY="221.0" prefHeight="25.0" prefWidth="279.0" promptText="User Name" />
             <PasswordField id="userpass" fx:id="PasswordField" layoutX="80.0" layoutY="270.0" prefHeight="25.0" prefWidth="279.0" promptText="Password" />
@@ -40,7 +39,8 @@
                </font>
             </Label>
             <Label layoutX="82.0" layoutY="323.0" text="Select User Role" textFill="#444444" />
-            <ComboBox layoutX="79.0" layoutY="352.0" prefHeight="25.0" prefWidth="279.0" promptText="Select User Role" />
+            <ComboBox fx:id="comb" accessibleRoleDescription="Admin ,Doctor" layoutX="79.0" layoutY="352.0" prefHeight="25.0" prefWidth="279.0" promptText="Select User Role" visibleRowCount="2" />
+            <Text layoutX="136.0" layoutY="782.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Development Project 3.1" />
          </children>
       </Pane>
       <Label layoutX="142.0" layoutY="45.0" prefHeight="51.0" prefWidth="288.0" text="A step closer to make " textFill="#f2f2f2" AnchorPane.leftAnchor="142.0" AnchorPane.topAnchor="45.0">
