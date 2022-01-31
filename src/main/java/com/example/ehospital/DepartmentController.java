@@ -40,9 +40,7 @@ public class DepartmentController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         DatabaseConnect.Connection();
         conn = DatabaseConnect.con;
-
         fetch_info();
-
     }
 
     public void fetch_info() {

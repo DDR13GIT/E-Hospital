@@ -3,10 +3,14 @@ package com.example.ehospital;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.sql.*;
@@ -48,8 +52,17 @@ public class MainController {
                 pst.setString(2, pass);
                 rs = pst.executeQuery();
                 if (rs.next()) {
-                    AnchorPane dashboardPane = FXMLLoader.load(getClass().getResource("department.fxml"));
-                    loginpane.getChildren().setAll(dashboardPane);
+//                    AnchorPane dashboardPane = FXMLLoader.load(getClass().getResource("department.fxml"));
+//                    loginpane.getChildren().setAll(dashboardPane);
+
+                    Parent root = FXMLLoader.load(getClass().getResource("department.fxml"));
+                    Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
+                    Scene scene = new Scene(root);
+
+                    stage.setScene(scene);
+                    stage.show();
+
+
 
                 } else {
                     System.out.println("Please Enter Correct email Or Password");
