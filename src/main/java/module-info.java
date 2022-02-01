@@ -7,6 +7,7 @@ module com.example.ehospital {
 
 
 
+
     opens com.example.ehospital to javafx.fxml;
     exports com.example.ehospital;
 }
