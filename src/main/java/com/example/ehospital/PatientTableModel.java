@@ -4,15 +4,12 @@ public class PatientTableModel {
     private String firstName,LastName,email,mobileNo,PhoneNo,address,gender,bloodGroup,dob,createDate,status;
     private int serialNo;
 
-    public PatientTableModel() {
-    }
-
     public PatientTableModel(String firstName, String lastName, String email, String mobileNo, String phoneNo, String address, String gender, String bloodGroup, String dob, String createDate, String status, int serialNo) {
         this.firstName = firstName;
-        LastName = lastName;
+        this.LastName = lastName;
         this.email = email;
         this.mobileNo = mobileNo;
-        PhoneNo = phoneNo;
+        this.PhoneNo = phoneNo;
         this.address = address;
         this.gender = gender;
         this.bloodGroup = bloodGroup;

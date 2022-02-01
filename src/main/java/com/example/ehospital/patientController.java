@@ -3,6 +3,7 @@ package com.example.ehospital;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class patientController {
+public class patientController implements Initializable {
 
     ObservableList<PatientTableModel> patientList = FXCollections.observableArrayList();
 
@@ -25,19 +26,19 @@ public class patientController {
     private TableView<PatientTableModel> PatientTableFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientAddressFxid;
+    private TableColumn<PatientTableModel, String> PatientAddressFxid;
 
     @FXML
     private TextField PatientAddress_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientBloodGroupFxid;
+    private TableColumn<PatientTableModel, String> PatientBloodGroupFxid;
 
     @FXML
     private TextField PatientBloodGroup_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientCreateDateFxid;
+    private TableColumn<PatientTableModel, String> PatientCreateDateFxid;
 
     @FXML
     private DatePicker PatientCreateDate_TfFxid;
@@ -46,25 +47,25 @@ public class patientController {
     private Button PatientDeleteBtn_fxid;
 
     @FXML
-    private TableColumn<?, ?> PatientDobFxid;
+    private TableColumn<PatientTableModel, String> PatientDobFxid;
 
     @FXML
     private DatePicker PatientDob_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientEmailFxid;
+    private TableColumn<PatientTableModel, String> PatientEmailFxid;
 
     @FXML
     private TextField PatientEmail_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientFirstNameFxid;
+    private TableColumn<PatientTableModel, String> PatientFirstNameFxid;
 
     @FXML
     private TextField PatientFirstName_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientGenderFxid;
+    private TableColumn<PatientTableModel, String> PatientGenderFxid;
 
     @FXML
     private TextField PatientGender_TfFxid;
@@ -73,19 +74,19 @@ public class patientController {
     private Button PatientInsertBtn_fxid;
 
     @FXML
-    private TableColumn<?, ?> PatientLastNameFxid;
+    private TableColumn<PatientTableModel, String> PatientLastNameFxid;
 
     @FXML
     private TextField PatientLastName_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientMobileFxid;
+    private TableColumn<PatientTableModel, String> PatientMobileFxid;
 
     @FXML
     private TextField PatientMobile_TfFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientPhoneFxid;
+    private TableColumn<PatientTableModel, String> PatientPhoneFxid;
 
     @FXML
     private TextField PatientPhone_TfFxid;
@@ -94,13 +95,13 @@ public class patientController {
     private Button PatientResetBtn_fxid;
 
     @FXML
-    private TableColumn<?, ?> PatientSerialNoFxid;
+    private TableColumn<PatientTableModel, String> PatientSerialNoFxid;
 
     @FXML
-    private TableColumn<?, ?> PatientStatusFxid;
+    private TableColumn<PatientTableModel, String> PatientStatusFxid;
 
     @FXML
-    private ComboBox<?> PatientStatus_TfFxid;
+    private ComboBox<String> PatientStatus_TfFxid;
 
     @FXML
     private Button PatientUpdateBtn_fxid;
