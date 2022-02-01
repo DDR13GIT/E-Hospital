@@ -70,7 +70,7 @@ public class MainController  implements Initializable {
                 if (rs.next()) {
 
                     if(s.equals("Admin")) {
-                        Parent root = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("patient.fxml"));
                         Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
