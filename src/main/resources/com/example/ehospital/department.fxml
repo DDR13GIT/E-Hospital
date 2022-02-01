@@ -20,7 +20,7 @@
       </Label>
       <HBox layoutX="20.0" layoutY="94.0" prefHeight="622.0" prefWidth="1201.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <children>
-            <TableView fx:id="DepartmentTableFxid" prefHeight="636.0" prefWidth="880.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="DepartmentTableFxid" HBox.hgrow="ALWAYS">
               <columns>
                   <TableColumn fx:id="SerialNoFxid" prefWidth="78.0" text="SerialNo" />
                   <TableColumn fx:id="DepartmentIdFxid" prefWidth="106.0" text="DepartmentID" />
@@ -60,21 +60,22 @@
       </HBox>
       <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
          <children>
-            <Button mnemonicParsing="false" text="Button">
+            <Button mnemonicParsing="false" text="Update">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Button">
+            <Button mnemonicParsing="false" text="Insert">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Button">
+            <Button mnemonicParsing="false" text="Delete">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
+            <Button mnemonicParsing="false" text="Reset" />
          </children>
       </HBox>
    </children>
