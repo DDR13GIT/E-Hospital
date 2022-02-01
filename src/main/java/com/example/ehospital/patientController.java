@@ -147,9 +147,9 @@ public class patientController implements Initializable {
                 String PatientCreateDate = rs.getString("CreateDate");
                 String PatientStatus = rs.getString("Status");
                 int PatientSerialNo = rs.getInt("SerialNo");
-                patientList.add(new PatientTableModel(PatientFirstName,PatientLastName,PatientEmail,
-                        PatientMobile,PatientPhone, PatientAddress,PatientGender,PatientBloodGroup,
-                        PatientDob,PatientCreateDate,PatientStatus,PatientSerialNo));
+                patientList.add(new PatientTableModel(PatientFirstName, PatientLastName, PatientEmail,
+                        PatientMobile, PatientPhone, PatientAddress, PatientGender, PatientBloodGroup,
+                        PatientDob, PatientCreateDate, PatientStatus, PatientSerialNo));
             }
             PatientTableFxid.setItems(patientList);
         } catch (Exception e) {
