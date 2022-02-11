@@ -31,21 +31,24 @@
             </TableView>
             <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="283.0">
                <children>
-                  <TextField promptText="Enter Department Name">
+                  <TextField fx:id="Deptnamefxid" promptText="Enter Department Name">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Give a Description">
+                  <TextField fx:id="Des_fxid" promptText="Give a Description">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter Current Status">
+                  <TextField fx:id="Status_fxid" promptText="Enter Current Status">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
+                  <Button fx:id="Insertfxid" mnemonicParsing="false" onAction="#InsertBtn" text="Insert" />
+                  <Button mnemonicParsing="false" onAction="#DeleteBtn" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#ResetBtn" text="Refresh" />
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
@@ -55,22 +58,11 @@
       </HBox>
       <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
          <children>
-            <Button mnemonicParsing="false" text="Insert">
+            <Button mnemonicParsing="false" onAction="#UpdateBtn" text="Update">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Update">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Delete">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Reset" />
          </children>
       </HBox>
    </children>
