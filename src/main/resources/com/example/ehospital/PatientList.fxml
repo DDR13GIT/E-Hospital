@@ -27,7 +27,7 @@
                         <TableColumn fx:id="PatientSerialNoFxid" prefWidth="78.0" text="SerialNo" />
                         <TableColumn fx:id="PatientFirstNameFxid" prefWidth="106.0" text="FirstName" />
                         <TableColumn fx:id="PatientLastNameFxid" prefWidth="228.0" text="LastName" />
-                        <TableColumn fx:id="PatientEmailFxid" minWidth="0.0" prefWidth="326.0" text="Email" />
+                        <TableColumn fx:id="PatientEmailFxid" minWidth="0.0" prefWidth="326.0" text="EmailAddress" />
                         <TableColumn fx:id="PatientMobileFxid" maxWidth="440.0" prefWidth="139.0" text="MobileNo" />
                   <TableColumn fx:id="PatientPhoneFxid" prefWidth="78.0" text="PhoneNo" />
                   <TableColumn fx:id="PatientAddressFxid" prefWidth="106.0" text="Address" />
@@ -70,27 +70,27 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="PatientGender_TfFxid" promptText="Enter Your Gender">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <ComboBox fx:id="PatientStatus_TfFxid1" prefHeight="26.0" prefWidth="299.0" promptText="Select Blood Group">
+                  <ComboBox fx:id="PatientGender_TfFxid" prefHeight="26.0" prefWidth="299.0" promptText="Select Gender">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <DatePicker fx:id="PatientDob_TfFxid" prefHeight="26.0" prefWidth="284.0" promptText="Enter Date of Birth">
+                  <ComboBox fx:id="PatientBlood_CbFxid1" prefHeight="26.0" prefWidth="299.0" promptText="Select Blood Group">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <DatePicker fx:id="PatientDob_DtFxid" prefHeight="26.0" prefWidth="284.0" promptText="Enter Date of Birth">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <DatePicker fx:id="PatientCreateDate_TfFxid" prefHeight="26.0" prefWidth="284.0" promptText="Enter Create Date">
+                  <DatePicker fx:id="PatientCreateDate_DpFxid" prefHeight="26.0" prefWidth="284.0" promptText="Enter Create Date">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <ComboBox fx:id="PatientStatus_TfFxid" prefHeight="26.0" prefWidth="299.0" promptText="Enter Current Status" />
+                  <ComboBox fx:id="PatientStatus_CbFxid" prefHeight="26.0" prefWidth="299.0" promptText="Enter Current Status" />
                     </children>
                     <HBox.margin>
                         <Insets left="20.0" />
@@ -100,12 +100,12 @@
         </HBox>
         <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
             <children>
-                <Button fx:id="PatientUpdateBtn_fxid" mnemonicParsing="false" text="Update">
+                <Button fx:id="PatientUpdateBtn_fxid" mnemonicParsing="false" onAction="#PatientUpdateBtn" text="Update">
                     <HBox.margin>
                         <Insets right="10.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="PatientInsertBtn_fxid" mnemonicParsing="false" text="Insert">
+                <Button fx:id="PatientInsertBtn_fxid" mnemonicParsing="false" onAction="#PatientInsertBtn" text="Insert">
                     <HBox.margin>
                         <Insets right="10.0" />
                     </HBox.margin>

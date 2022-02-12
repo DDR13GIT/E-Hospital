@@ -1,7 +1,7 @@
 package com.example.ehospital;
 
 public class PatientTableModel {
-    private String firstName,LastName,email,mobileNo,PhoneNo,address,gender,bloodGroup,dob,createDate,status;
+    private String firstName,LastName,email,mobileNo,PhoneNo,address,gender,bloodGroup,dob, createDate, status;
     private int serialNo;
 
     public PatientTableModel(String firstName, String lastName, String email, String mobileNo, String phoneNo, String address, String gender, String bloodGroup, String dob, String createDate, String status, int serialNo) {
@@ -17,6 +17,10 @@ public class PatientTableModel {
         this.createDate = createDate;
         this.status = status;
         this.serialNo = serialNo;
+    }
+
+    public PatientTableModel() {
+
     }
 
     public String getFirstName() {

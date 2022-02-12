@@ -15,8 +15,6 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import static java.time.zone.ZoneRulesProvider.refresh;
-
 public class DepartmentController implements Initializable {
     ObservableList<DepartmentTableModel> departmentList = FXCollections.observableArrayList();
     @FXML
@@ -161,9 +159,6 @@ public class DepartmentController implements Initializable {
 
         departmentList.clear();
         fetch_info();
-
-
-
     }
 }
 

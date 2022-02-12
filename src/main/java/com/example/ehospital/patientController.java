@@ -2,6 +2,7 @@ package com.example.ehospital;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,19 +12,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.Notifications;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class patientController implements Initializable {
 
     ObservableList<PatientTableModel> patientList = FXCollections.observableArrayList();
-
-    @FXML
-    private TableView<PatientTableModel> PatientTableFxid;
 
     @FXML
     private TableColumn<PatientTableModel, String> PatientAddressFxid;
@@ -35,13 +33,13 @@ public class patientController implements Initializable {
     private TableColumn<PatientTableModel, String> PatientBloodGroupFxid;
 
     @FXML
-    private TextField PatientBloodGroup_TfFxid;
+    private ComboBox<String> PatientBlood_CbFxid1;
 
     @FXML
     private TableColumn<PatientTableModel, String> PatientCreateDateFxid;
 
     @FXML
-    private DatePicker PatientCreateDate_TfFxid;
+    private DatePicker PatientCreateDate_DpFxid;
 
     @FXML
     private Button PatientDeleteBtn_fxid;
@@ -50,7 +48,7 @@ public class patientController implements Initializable {
     private TableColumn<PatientTableModel, String> PatientDobFxid;
 
     @FXML
-    private DatePicker PatientDob_TfFxid;
+    private DatePicker PatientDob_DtFxid;
 
     @FXML
     private TableColumn<PatientTableModel, String> PatientEmailFxid;
@@ -68,7 +66,7 @@ public class patientController implements Initializable {
     private TableColumn<PatientTableModel, String> PatientGenderFxid;
 
     @FXML
-    private TextField PatientGender_TfFxid;
+    private ComboBox<String> PatientGender_TfFxid;
 
     @FXML
     private Button PatientInsertBtn_fxid;
@@ -101,10 +99,19 @@ public class patientController implements Initializable {
     private TableColumn<PatientTableModel, String> PatientStatusFxid;
 
     @FXML
-    private ComboBox<String> PatientStatus_TfFxid;
+    private ComboBox<String> PatientStatus_CbFxid;
+
+    @FXML
+    private TableView<PatientTableModel> PatientTableFxid;
 
     @FXML
     private Button PatientUpdateBtn_fxid;
+
+    PatientTableModel patient;
+
+    ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female", "Neutral");
+    ObservableList<String> bloodList = FXCollections.observableArrayList("O(+)", "O(-)", "A(+)", "A(+)", "B(+)", "B(-)", "AB(+)", "AB(-)");
+    ObservableList<String> statusList = FXCollections.observableArrayList("Active", "Inactive");
 
     Connection conn;
 
@@ -112,6 +119,10 @@ public class patientController implements Initializable {
         DatabaseConnect.Connection();
         conn = DatabaseConnect.con;
         fetch_info();
+
+        PatientGender_TfFxid.setItems(genderList);
+        PatientBlood_CbFxid1.setItems(bloodList);
+        PatientStatus_CbFxid.setItems(statusList);
     }
 
     private void fetch_info() {
@@ -156,6 +167,89 @@ public class patientController implements Initializable {
 
         }
     }
+
+    public void PatientInsertBtn(ActionEvent actionEvent) throws SQLException {
+        PreparedStatement pst = null;
+        try {
+            String query = " INSERT INTO Patient (FirstName, LastName, EmailAddress,MobileNo,PhoneNo ,Address,Gender,BloodGroup,Dob,CreateDate,Status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+            pst = conn.prepareStatement(query);
+            String firstName = PatientFirstName_TfFxid.getText();
+            String lastName = PatientLastName_TfFxid.getText();
+            String email = PatientEmail_TfFxid.getText();
+            String mobile = PatientMobile_TfFxid.getText();
+            String phone = PatientPhone_TfFxid.getText();
+            String address = PatientAddress_TfFxid.getText();
+            String gender = PatientGender_TfFxid.getSelectionModel().getSelectedItem().toString();
+            String bloodGroup = PatientBlood_CbFxid1.getSelectionModel().getSelectedItem().toString();
+            String status = PatientStatus_CbFxid.getSelectionModel().getSelectedItem().toString();
+            LocalDate dateOfBirth = PatientDob_DtFxid.getValue();
+            LocalDate createDate = PatientCreateDate_DpFxid.getValue();
+
+
+            if (firstName.equals("") || lastName.equals("") || mobile.equals("") || phone.equals("") || address.equals("")) {
+                Notifications.create()
+                        .title("Warning")
+                        .text("Please fillup all the information")
+                        .showError();
+
+            } else {
+                pst.setString(1, firstName);
+                pst.setString(2, lastName);
+                pst.setString(3, email);
+                pst.setString(4, mobile);
+                pst.setString(5, phone);
+                pst.setString(6, address);
+                pst.setString(7, gender);
+                pst.setString(8, bloodGroup);
+                pst.setString(9, status);
+                pst.setDate(10, Date.valueOf(dateOfBirth));
+                pst.setDate(11, Date.valueOf(createDate));
+
+
+                pst.executeUpdate();
+                Notifications.create()
+                        .title("Info")
+                        .text("Added Successfully")
+                        .show();
+                System.out.println("inserted");
+
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+    public void PatientUpdateBtn(ActionEvent actionEvent) {
+    }
+
+    public void DeleteBtn(ActionEvent actionEvent) {
+        PreparedStatement pst = null;
+        try {
+
+            patient=PatientTableFxid.getSelectionModel().getSelectedItem();
+            String sql="DELETE FROM Patient  WHERE Patient.MobileNo=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,patient.getMobileNo());
+            pst.executeUpdate();
+            Notifications.create()
+                    .title("Info")
+                    .text("Deleted Successfully")
+                    .show();
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+
+    }
+
 
 }
 

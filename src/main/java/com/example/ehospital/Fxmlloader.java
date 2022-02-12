@@ -1,11 +1,10 @@
 package com.example.ehospital;
 
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+
+import java.io.FileNotFoundException;
+import java.net.URL;
 
 
 
@@ -37,6 +36,7 @@ public class Fxmlloader {
       view=FXMLLoader.load(fileUrl);
     }   catch (Exception e) {
          System.out.println("No page" +fileName+ "Please check fxmlLoader");
+         e.printStackTrace();
         }
 
    return view;
