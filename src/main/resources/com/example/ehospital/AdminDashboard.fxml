@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="dashboardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.AdminDashboardController">
    <children>
-      <BorderPane fx:id="mainPane" prefHeight="616.0" prefWidth="1300.0" style="-fx-background-color: #F5F5FC;">
+      <BorderPane fx:id="mainPane" prefWidth="1300.0" style="-fx-background-color: #F5F5FC;">
          <left>
             <VBox prefHeight="800.0" prefWidth="266.0" style="-fx-background-color: #FEFEFE;" BorderPane.alignment="CENTER">
                <children>
@@ -34,7 +34,7 @@
                               <Insets left="50.0" />
                            </padding>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#departmentBtn" prefHeight="70.0" prefWidth="266.0" styleClass="navPaneBtn" text="Department" textAlignment="RIGHT" textFill="#200e32">
+                        <Button fx:id="departmentBtnFxid" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#departmentBtn" prefHeight="70.0" prefWidth="266.0" styleClass="navPaneBtn" text="Department" textAlignment="RIGHT" textFill="#200e32">
                            <font>
                               <Font name="BMWHelvetica-Heavy" size="15.0" />
                            </font>

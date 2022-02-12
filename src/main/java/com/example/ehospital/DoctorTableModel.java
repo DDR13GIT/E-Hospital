@@ -2,10 +2,10 @@ package com.example.ehospital;
 
 public class DoctorTableModel {
     private String FirstName, LastName, Department, EmailAddress,MobileNo,PhoneNo,Address
-            ,Sex,BloodGroup,DOB,UserRole,JoinDate,Status;
+            ,Sex,BloodGroup,DOB,JoinDate,Status;
     private int SerialNo,Fees;
 
-    public DoctorTableModel(String firstName, String lastName, String department, String emailAddress, String mobileNo, String phoneNo, String address, String sex, String bloodGroup, String DOB, String userRole, String joinDate, String status, int fees, int serialNo) {
+    public DoctorTableModel(String firstName, String lastName, String department, String emailAddress, String mobileNo, String phoneNo, String address, String sex, String bloodGroup, String DOB, String joinDate, String status, int fees, int serialNo) {
         FirstName = firstName;
         LastName = lastName;
         Department = department;
@@ -16,7 +16,6 @@ public class DoctorTableModel {
         Sex = sex;
         BloodGroup = bloodGroup;
         this.DOB = DOB;
-        UserRole = userRole;
         JoinDate = joinDate;
         Status = status;
         Fees = fees;
@@ -101,14 +100,6 @@ public class DoctorTableModel {
 
     public void setDOB(String DOB) {
         this.DOB = DOB;
-    }
-
-    public String getUserRole() {
-        return UserRole;
-    }
-
-    public void setUserRole(String userRole) {
-        UserRole = userRole;
     }
 
     public String getJoinDate() {

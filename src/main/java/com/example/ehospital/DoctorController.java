@@ -14,7 +14,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class DoctorController  implements Initializable {
+public class DoctorController implements Initializable {
 
     ObservableList<DoctorTableModel> doctorList = FXCollections.observableArrayList();
     final ObservableList dept = FXCollections.observableArrayList();
@@ -99,14 +99,14 @@ public class DoctorController  implements Initializable {
     PreparedStatement pst;
     ResultSet rs;
 
-    public void fillComboBox()  {
+    public void fillComboBox() {
         dept.clear();
-        String query= " select DepartmentName from Department";
+        String query = " select DepartmentName from Department";
         try {
-            pst=conn.prepareStatement(query);
-            rs=pst.executeQuery();
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 dept.add(rs.getString("DepartmentName"));
             }
             pst.close();
@@ -123,14 +123,19 @@ public class DoctorController  implements Initializable {
         conn = DatabaseConnect.con;
         fetch_info();
 
-        ObservableList<String> bgcomb = FXCollections.observableArrayList("A","B+","B-","O+","O-","AB");
+        ObservableList<String> bgcomb = FXCollections.observableArrayList("A", "B+", "B-", "O+", "O-", "AB");
         DoctorBG_fxid1.setItems(bgcomb);
 
-        ObservableList<String> gendercomb = FXCollections.observableArrayList("Male","Female");
+        ObservableList<String> gendercomb = FXCollections.observableArrayList("Male", "Female");
         DoctorGender_fxid.setItems(gendercomb);
 
-        ObservableList<String> statuscomb = FXCollections.observableArrayList("Active","Inactive");
+        ObservableList<String> statuscomb = FXCollections.observableArrayList("Active", "Inactive");
         DoctorStatus_fxid.setItems(statuscomb);
+        try{
+        fillComboBox();}
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void fetch_info() {
@@ -138,14 +143,13 @@ public class DoctorController  implements Initializable {
         FnameFxid.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
         LnameFxid.setCellValueFactory(new PropertyValueFactory<>("LastName"));
         DepartmentFxid.setCellValueFactory(new PropertyValueFactory<>("Department"));
-       EmailAddressFxid.setCellValueFactory(new PropertyValueFactory<>("EmailAddress" ));
+        EmailAddressFxid.setCellValueFactory(new PropertyValueFactory<>("EmailAddress"));
         MobileFxid.setCellValueFactory(new PropertyValueFactory<>("MobileNo"));
         PhoneFxid.setCellValueFactory(new PropertyValueFactory<>("PhoneNo"));
         AddressFxid.setCellValueFactory(new PropertyValueFactory<>("Address"));
-       GenderFxid.setCellValueFactory(new PropertyValueFactory<>("Sex"));
+        GenderFxid.setCellValueFactory(new PropertyValueFactory<>("Sex"));
         BGFxid.setCellValueFactory(new PropertyValueFactory<>("BloodGroup"));
         DOBFxid.setCellValueFactory(new PropertyValueFactory<>("DOB"));
-        UserRoleFxid.setCellValueFactory(new PropertyValueFactory<>("UserRole"));
         JoinDateFxid.setCellValueFactory(new PropertyValueFactory<>("JoinDate"));
         StatusFxid.setCellValueFactory(new PropertyValueFactory<>("Status"));
         FeesFxid.setCellValueFactory(new PropertyValueFactory<>("Fees"));
@@ -167,14 +171,12 @@ public class DoctorController  implements Initializable {
                 String gender = rs.getString("Sex");
                 String bloodgroup = rs.getString("BloodGroup");
                 String dob = rs.getString("DOB");
-                String userrole = rs.getString("UserRole");
                 String joindate = rs.getString("JoinDate");
                 String status = rs.getString("Status");
                 int fees = rs.getInt("Fees");
 
                 int serialNo = rs.getInt("SerialNo");
-                doctorList.add(new DoctorTableModel(firstName, lastName,department,emailAddress,mobile,phone,address,gender,bloodgroup,dob,
-                        userrole,joindate,status, fees, serialNo));
+                doctorList.add(new DoctorTableModel(firstName, lastName, department, emailAddress, mobile, phone, address, gender, bloodgroup, dob, joindate, status, fees, serialNo));
             }
             DoctorTableFxid.setItems(doctorList);
         } catch (Exception e) {
@@ -183,16 +185,17 @@ public class DoctorController  implements Initializable {
     }
 
     DoctorTableModel doct;
+
     @FXML
     void DoctorDeleteBtn(ActionEvent event) {
         PreparedStatement pst = null;
         Connection con;
         try {
 
-            doct=DoctorTableFxid.getSelectionModel().getSelectedItem();
-            String sql="DELETE FROM DoctorTable  WHERE DoctorTable.FirstName=?";
+            doct = DoctorTableFxid.getSelectionModel().getSelectedItem();
+            String sql = "DELETE FROM DoctorTable  WHERE DoctorTable.FirstName=?";
             pst = conn.prepareStatement(sql);
-            pst.setString(1,doct.getFirstName());
+            pst.setString(1, doct.getFirstName());
             pst.executeUpdate();
             Notifications.create()
                     .title("Info")
@@ -210,49 +213,46 @@ public class DoctorController  implements Initializable {
 
         PreparedStatement pst = null;
         try {
-            String query = " INSERT INTO DoctorTable ( FirstName,LastName,Department,EmailAddress,MobileNo,PhoneNo,Address,Sex,BloodGroup,DOB,JoinDate,Status,Fees) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String query = " INSERT INTO DoctorTable ( FirstName,LastName,EmailAddress,MobileNo,PhoneNo,Address,Sex,BloodGroup,DOB,JoinDate,Status,Fees) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
             pst = conn.prepareStatement(query);
-            String doctorFname=DoctorFname_fxid.getText();
-            String doctorLname= DoctorLname_fxid.getText();
-            String doctorDept=DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
-            String doctorEmail= DoctorEmail_fxid.getText();
-            String doctorMobile=DoctorMobile_fxid.getText();
-            String doctorPhone= DoctorPhone_fxid.getText();
-            String doctorAddress= DoctorAddress_fxid.getText();
-            String doctorFee=DoctorFee_fxid.getText();
-            LocalDate doctorDob=DoctorDob_fxid.getValue();
-            String doctorBG= DoctorBG_fxid1.getSelectionModel().getSelectedItem().toString();
-            String doctorGender=DoctorGender_fxid.getSelectionModel().getSelectedItem().toString();
-            LocalDate doctorJoin=DoctorJoin_fxid.getValue();
-            String doctorStatus=DoctorStatus_fxid.getSelectionModel().getSelectedItem().toString();
+            String doctorFname = DoctorFname_fxid.getText();
+            String doctorLname = DoctorLname_fxid.getText();
+//            String doctorDept=DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
+            String doctorEmail = DoctorEmail_fxid.getText();
+            String doctorMobile = DoctorMobile_fxid.getText();
+            String doctorPhone = DoctorPhone_fxid.getText();
+            String doctorAddress = DoctorAddress_fxid.getText();
+            String doctorFee = DoctorFee_fxid.getText();
+            LocalDate doctorDob = DoctorDob_fxid.getValue();
+            String doctorBG = DoctorBG_fxid1.getSelectionModel().getSelectedItem().toString();
+            String doctorGender = DoctorGender_fxid.getSelectionModel().getSelectedItem().toString();
+            LocalDate doctorJoin = DoctorJoin_fxid.getValue();
+            String doctorStatus = DoctorStatus_fxid.getSelectionModel().getSelectedItem().toString();
 
-            if(doctorFname.equals("") || doctorLname.equals("") || doctorDept.equals("")||doctorEmail.equals("") ||doctorMobile.equals("")||
-                    doctorPhone.equals("")||doctorAddress.equals("")||doctorFee.equals("")||doctorDob.equals("")||
-                    doctorBG.equals("")||doctorGender.equals("")||doctorGender.equals("")||doctorGender.equals(""))
-            {
+            if (doctorFname.equals("") || doctorLname.equals("") || doctorEmail.equals("") || doctorMobile.equals("") ||
+                    doctorPhone.equals("") || doctorAddress.equals("") || doctorFee.equals("") || doctorDob.equals("") ||
+                    doctorBG.equals("") || doctorGender.equals("") || doctorGender.equals("") || doctorGender.equals("")) {
                 Notifications.create()
                         .title("Warning")
                         .text("Please fillup all the information")
                         .showError();
 
-            }
-            else
-            {
+            } else {
 
                 pst.setString(1, doctorFname);
                 pst.setString(2, doctorLname);
-                pst.setString(3, doctorDept);
-                pst.setString(4, doctorEmail);
-                pst.setString(5, doctorMobile);
-                pst.setString(6, doctorPhone);
-                pst.setString(7, doctorAddress);
-                pst.setString(8, doctorGender);
-                pst.setString(9, doctorBG);
-                pst.setDate(10, Date.valueOf(doctorDob));
-                pst.setDate(11, Date.valueOf(doctorJoin));
-                pst.setString(12, doctorStatus);
-                pst.setString(13, doctorFee);
+//                pst.setString(3, doctorDept);
+                pst.setString(3, doctorEmail);
+                pst.setString(4, doctorMobile);
+                pst.setString(5, doctorPhone);
+                pst.setString(6, doctorAddress);
+                pst.setString(7, doctorGender);
+                pst.setString(8, doctorBG);
+                pst.setDate(9, Date.valueOf(doctorDob));
+                pst.setDate(10, Date.valueOf(doctorJoin));
+                pst.setString(11, doctorStatus);
+                pst.setString(12, doctorFee);
                 pst.executeUpdate();
                 Notifications.create()
                         .title("Info")
@@ -286,4 +286,4 @@ public class DoctorController  implements Initializable {
 
     }
 
-    }
+}

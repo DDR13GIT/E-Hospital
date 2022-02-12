@@ -35,7 +35,6 @@
                   <TableColumn fx:id="GenderFxid" maxWidth="513.0" prefWidth="36.0" text="Sex" />
                   <TableColumn fx:id="BGFxid" prefWidth="75.0" text="Blood Group" />
                   <TableColumn fx:id="DOBFxid" prefWidth="75.0" text="DOB" />
-                  <TableColumn fx:id="UserRoleFxid" prefWidth="75.0" text="User Role" />
                   <TableColumn fx:id="JoinDateFxid" prefWidth="75.0" text="JoinDate" />
                   <TableColumn fx:id="StatusFxid" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="FeesFxid" prefWidth="75.0" text="Fees" />
