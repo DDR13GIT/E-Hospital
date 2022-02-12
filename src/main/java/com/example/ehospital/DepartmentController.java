@@ -44,6 +44,10 @@ public class DepartmentController implements Initializable {
 
     @FXML
     private TableColumn<DepartmentTableModel, String> SerialNoFxid;
+
+
+
+
     DepartmentTableModel dept;
 
     Connection conn;
