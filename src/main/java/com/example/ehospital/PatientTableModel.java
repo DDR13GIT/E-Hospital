@@ -1,34 +1,31 @@
 package com.example.ehospital;
 
 public class PatientTableModel {
-    private String firstName,LastName,email,mobileNo,PhoneNo,address,gender,bloodGroup,dob, createDate, status;
-    private int serialNo;
+    private String FirstName, LastName, EmailAddress, MobileNo, PhoneNo, Address, Gender, BloodGroup,DOB, CreateDate, Status, PatientId;
+    private int SerialNo;
 
-    public PatientTableModel(String firstName, String lastName, String email, String mobileNo, String phoneNo, String address, String gender, String bloodGroup, String dob, String createDate, String status, int serialNo) {
-        this.firstName = firstName;
-        this.LastName = lastName;
-        this.email = email;
-        this.mobileNo = mobileNo;
-        this.PhoneNo = phoneNo;
-        this.address = address;
-        this.gender = gender;
-        this.bloodGroup = bloodGroup;
-        this.dob = dob;
-        this.createDate = createDate;
-        this.status = status;
-        this.serialNo = serialNo;
-    }
-
-    public PatientTableModel() {
-
+    public PatientTableModel(String firstName, String lastName, String emailAddress, String mobileNo, String phoneNo, String address, String gender, String bloodGroup, String DOB, String createDate, String status, String patientId, int serialNo) {
+        FirstName = firstName;
+        LastName = lastName;
+        EmailAddress = emailAddress;
+        MobileNo = mobileNo;
+        PhoneNo = phoneNo;
+        Address = address;
+        Gender = gender;
+        BloodGroup = bloodGroup;
+        this.DOB = DOB;
+        CreateDate = createDate;
+        Status = status;
+        PatientId = patientId;
+        SerialNo = serialNo;
     }
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        FirstName = firstName;
     }
 
     public String getLastName() {
@@ -39,20 +36,20 @@ public class PatientTableModel {
         LastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailAddress() {
+        return EmailAddress;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailAddress(String emailAddress) {
+        EmailAddress = emailAddress;
     }
 
     public String getMobileNo() {
-        return mobileNo;
+        return MobileNo;
     }
 
     public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+        MobileNo = mobileNo;
     }
 
     public String getPhoneNo() {
@@ -64,58 +61,66 @@ public class PatientTableModel {
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        Address = address;
     }
 
     public String getGender() {
-        return gender;
+        return Gender;
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        Gender = gender;
     }
 
     public String getBloodGroup() {
-        return bloodGroup;
+        return BloodGroup;
     }
 
     public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
+        BloodGroup = bloodGroup;
     }
 
-    public String getDob() {
-        return dob;
+    public String getDOB() {
+        return DOB;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
     }
 
     public String getCreateDate() {
-        return createDate;
+        return CreateDate;
     }
 
     public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+        CreateDate = createDate;
     }
 
     public String getStatus() {
-        return status;
+        return Status;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        Status = status;
+    }
+
+    public String getPatientId() {
+        return PatientId;
+    }
+
+    public void setPatientId(String patientId) {
+        PatientId = patientId;
     }
 
     public int getSerialNo() {
-        return serialNo;
+        return SerialNo;
     }
 
     public void setSerialNo(int serialNo) {
-        this.serialNo = serialNo;
+        SerialNo = serialNo;
     }
 }

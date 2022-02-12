@@ -23,9 +23,10 @@ import java.util.ResourceBundle;
 public class DoctorController implements Initializable {
 
     ObservableList<DoctorTableModel> doctorList = FXCollections.observableArrayList();
-    final ObservableList dept = FXCollections.observableArrayList();
+   final ObservableList dept = FXCollections.observableArrayList();
 
-    ComboBox comboBox = new ComboBox(dept);
+//    ComboBox comboBox = new ComboBox(dept);
+
 
     @FXML
     private TableView<DoctorTableModel> DoctorTableFxid;
@@ -129,7 +130,7 @@ public class DoctorController implements Initializable {
         conn = DatabaseConnect.con;
         fetch_info();
 
-        ObservableList<String> bgcomb = FXCollections.observableArrayList("A", "B+", "B-", "O+", "O-", "AB");
+        ObservableList<String> bgcomb = FXCollections.observableArrayList("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-");
         DoctorBG_fxid1.setItems(bgcomb);
 
         ObservableList<String> gendercomb = FXCollections.observableArrayList("Male", "Female");
@@ -137,11 +138,10 @@ public class DoctorController implements Initializable {
 
         ObservableList<String> statuscomb = FXCollections.observableArrayList("Active", "Inactive");
         DoctorStatus_fxid.setItems(statuscomb);
-        try{
-        fillComboBox();}
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        fillComboBox();
+        DoctorDept_fxid.setItems(dept);
+
+
     }
 
     public void fetch_info() {
@@ -219,12 +219,12 @@ public class DoctorController implements Initializable {
 
         PreparedStatement pst = null;
         try {
-            String query = " INSERT INTO DoctorTable ( FirstName,LastName,EmailAddress,MobileNo,PhoneNo,Address,Sex,BloodGroup,DOB,JoinDate,Status,Fees) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String query = " INSERT INTO DoctorTable (FirstName,LastName,Department,EmailAddress,MobileNo,PhoneNo,Address,Sex,BloodGroup,DOB,JoinDate,Status,Fees) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             pst = conn.prepareStatement(query);
             String doctorFname = DoctorFname_fxid.getText();
             String doctorLname = DoctorLname_fxid.getText();
-//            String doctorDept=DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
+            String doctorDept=DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
             String doctorEmail = DoctorEmail_fxid.getText();
             String doctorMobile = DoctorMobile_fxid.getText();
             String doctorPhone = DoctorPhone_fxid.getText();
@@ -238,7 +238,7 @@ public class DoctorController implements Initializable {
 
             if (doctorFname.equals("") || doctorLname.equals("") || doctorEmail.equals("") || doctorMobile.equals("") ||
                     doctorPhone.equals("") || doctorAddress.equals("") || doctorFee.equals("") || doctorDob.equals("") ||
-                    doctorBG.equals("") || doctorGender.equals("") || doctorGender.equals("") || doctorGender.equals("")) {
+                    doctorBG.equals("") || doctorGender.equals("")) {
                 Notifications.create()
                         .title("Warning")
                         .text("Please fillup all the information")
@@ -248,17 +248,17 @@ public class DoctorController implements Initializable {
 
                 pst.setString(1, doctorFname);
                 pst.setString(2, doctorLname);
-//                pst.setString(3, doctorDept);
-                pst.setString(3, doctorEmail);
-                pst.setString(4, doctorMobile);
-                pst.setString(5, doctorPhone);
-                pst.setString(6, doctorAddress);
-                pst.setString(7, doctorGender);
-                pst.setString(8, doctorBG);
-                pst.setDate(9, Date.valueOf(doctorDob));
-                pst.setDate(10, Date.valueOf(doctorJoin));
-                pst.setString(11, doctorStatus);
-                pst.setString(12, doctorFee);
+                pst.setString(3, doctorDept);
+                pst.setString(4, doctorEmail);
+                pst.setString(5, doctorMobile);
+                pst.setString(6, doctorPhone);
+                pst.setString(7, doctorAddress);
+                pst.setString(8, doctorGender);
+                pst.setString(9, doctorBG);
+                pst.setDate(10, Date.valueOf(doctorDob));
+                pst.setDate(11, Date.valueOf(doctorJoin));
+                pst.setString(12, doctorStatus);
+                pst.setString(13, doctorFee);
                 pst.executeUpdate();
                 Notifications.create()
                         .title("Info")

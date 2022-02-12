@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
-
+import java.time.LocalDate;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -110,7 +110,7 @@ public class patientController implements Initializable {
     PatientTableModel patient;
 
     ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female", "Neutral");
-    ObservableList<String> bloodList = FXCollections.observableArrayList("O(+)", "O(-)", "A(+)", "A(+)", "B(+)", "B(-)", "AB(+)", "AB(-)");
+    ObservableList<String> bloodList = FXCollections.observableArrayList("O+", "O-", "A+", "A+", "B+", "B-", "AB+", "AB-");
     ObservableList<String> statusList = FXCollections.observableArrayList("Active", "Inactive");
 
     Connection conn;
@@ -135,9 +135,10 @@ public class patientController implements Initializable {
         PatientAddressFxid.setCellValueFactory(new PropertyValueFactory("Address"));
         PatientGenderFxid.setCellValueFactory(new PropertyValueFactory("Gender"));
         PatientBloodGroupFxid.setCellValueFactory(new PropertyValueFactory("BloodGroup"));
-        PatientDobFxid.setCellValueFactory(new PropertyValueFactory<>("Dob"));
+        PatientDobFxid.setCellValueFactory(new PropertyValueFactory<>("DOB"));
         PatientCreateDateFxid.setCellValueFactory(new PropertyValueFactory("CreateDate"));
         PatientStatusFxid.setCellValueFactory(new PropertyValueFactory<>("Status"));
+       // PatientStatusFxid.setCellValueFactory(new PropertyValueFactory<>("PatientId"));
 
         try {
             Statement st = conn.createStatement();
@@ -145,7 +146,7 @@ public class patientController implements Initializable {
             ResultSet rs = st.executeQuery(fetch_query);
 
             while (rs.next()) {
-
+                int PatientSerialNo = rs.getInt("SerialNo");
                 String PatientFirstName = rs.getString("FirstName");
                 String PatientLastName = rs.getString("LastName");
                 String PatientEmail = rs.getString("EmailAddress");
@@ -154,13 +155,14 @@ public class patientController implements Initializable {
                 String PatientAddress = rs.getString("Address");
                 String PatientGender = rs.getString("Gender");
                 String PatientBloodGroup = rs.getString("BloodGroup");
-                String PatientDob = rs.getString("Dob");
+                String PatientDob = rs.getString("DOB");
                 String PatientCreateDate = rs.getString("CreateDate");
                 String PatientStatus = rs.getString("Status");
-                int PatientSerialNo = rs.getInt("SerialNo");
+                String PatientId = rs.getString("Status");
+
                 patientList.add(new PatientTableModel(PatientFirstName, PatientLastName, PatientEmail,
                         PatientMobile, PatientPhone, PatientAddress, PatientGender, PatientBloodGroup,
-                        PatientDob, PatientCreateDate, PatientStatus, PatientSerialNo));
+                        PatientDob, PatientCreateDate, PatientStatus,PatientId,PatientSerialNo));
             }
             PatientTableFxid.setItems(patientList);
         } catch (Exception e) {
@@ -171,7 +173,7 @@ public class patientController implements Initializable {
     public void PatientInsertBtn(ActionEvent actionEvent) throws SQLException {
         PreparedStatement pst = null;
         try {
-            String query = " INSERT INTO Patient (FirstName, LastName, EmailAddress,MobileNo,PhoneNo ,Address,Gender,BloodGroup,Dob,CreateDate,Status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            String query = "INSERT INTO Patient (FirstName, LastName, EmailAddress,MobileNo,PhoneNo,Address,Gender,BloodGroup,DOB,CreateDate,Status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
             pst = conn.prepareStatement(query);
             String firstName = PatientFirstName_TfFxid.getText();
@@ -183,8 +185,8 @@ public class patientController implements Initializable {
             String gender = PatientGender_TfFxid.getSelectionModel().getSelectedItem().toString();
             String bloodGroup = PatientBlood_CbFxid1.getSelectionModel().getSelectedItem().toString();
             String status = PatientStatus_CbFxid.getSelectionModel().getSelectedItem().toString();
-//            LocalDate dateOfBirth = PatientDob_DtFxid.getValue();
-//            LocalDate createDate = PatientCreateDate_DpFxid.getValue();
+            LocalDate dateOfBirth = PatientDob_DtFxid.getValue();
+            LocalDate createDate = PatientCreateDate_DpFxid.getValue();
 
 
             if (firstName.equals("") || lastName.equals("") || mobile.equals("") || phone.equals("") || address.equals("")) {
@@ -203,8 +205,8 @@ public class patientController implements Initializable {
                 pst.setString(7, gender);
                 pst.setString(8, bloodGroup);
                 pst.setString(9, status);
-//                pst.setDate(10, Date.valueOf(dateOfBirth));
-//                pst.setDate(11, Date.valueOf(createDate));
+                pst.setDate(10, Date.valueOf(dateOfBirth));
+                pst.setDate(11, Date.valueOf(createDate));
 
 
                 pst.executeUpdate();
