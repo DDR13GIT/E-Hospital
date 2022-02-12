@@ -4,19 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class patientController implements Initializable {
@@ -183,8 +183,8 @@ public class patientController implements Initializable {
             String gender = PatientGender_TfFxid.getSelectionModel().getSelectedItem().toString();
             String bloodGroup = PatientBlood_CbFxid1.getSelectionModel().getSelectedItem().toString();
             String status = PatientStatus_CbFxid.getSelectionModel().getSelectedItem().toString();
-            LocalDate dateOfBirth = PatientDob_DtFxid.getValue();
-            LocalDate createDate = PatientCreateDate_DpFxid.getValue();
+//            LocalDate dateOfBirth = PatientDob_DtFxid.getValue();
+//            LocalDate createDate = PatientCreateDate_DpFxid.getValue();
 
 
             if (firstName.equals("") || lastName.equals("") || mobile.equals("") || phone.equals("") || address.equals("")) {
@@ -203,8 +203,8 @@ public class patientController implements Initializable {
                 pst.setString(7, gender);
                 pst.setString(8, bloodGroup);
                 pst.setString(9, status);
-                pst.setDate(10, Date.valueOf(dateOfBirth));
-                pst.setDate(11, Date.valueOf(createDate));
+//                pst.setDate(10, Date.valueOf(dateOfBirth));
+//                pst.setDate(11, Date.valueOf(createDate));
 
 
                 pst.executeUpdate();
@@ -250,6 +250,12 @@ public class patientController implements Initializable {
 
     }
 
-
+    public void BackBtn(ActionEvent actionEvent) throws SQLException, IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
+    }
 }
 

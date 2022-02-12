@@ -4,11 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -284,6 +290,14 @@ public class DoctorController implements Initializable {
     @FXML
     void DoctorUpdateBtn(ActionEvent event) {
 
+    }
+
+    public void BackBtn(ActionEvent actionEvent) throws SQLException, IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
     }
 
 }
