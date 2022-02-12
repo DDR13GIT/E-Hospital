@@ -1,29 +1,60 @@
 package com.example.ehospital;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AdminDashboardController {
-    @FXML
-    private BorderPane mainPane;
 
-    public void departmentBtn(ActionEvent actionEvent) {
-        Fxmlloader object = new Fxmlloader();
-        Pane view = object.getPage("department");
-        mainPane.setCenter(view);
+//    public void logout(ActionEvent actionEvent) throws IOException {
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+//        Scene scene = new Scene(root);
+//        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+
+
+    public void departmentBtn(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("department.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
     }
 
-    public void doctorBtn(ActionEvent actionEvent) {
-        Fxmlloader object = new Fxmlloader();
-        Pane view = object.getPage("DoctorList");
-        mainPane.setCenter(view);
+    public void doctorBtn(ActionEvent actionEvent)  throws IOException{
+        Parent root1 = FXMLLoader.load(getClass().getResource("DoctorList.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
     }
 
-    public void patientBtn(ActionEvent actionEvent) {
-        Fxmlloader object = new Fxmlloader();
-        Pane view = object.getPage("PatientList");
-        mainPane.setCenter(view);
+    public void patientBtn(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("PatientList.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
+    }
+    public void appointmentBtn(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("Appointment.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
+    }
+    public void billingBtn(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("Billing.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
     }
 }

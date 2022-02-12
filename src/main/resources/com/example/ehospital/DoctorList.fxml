@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="797.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.DoctorController">
    <children>
-      <Label layoutX="30.0" layoutY="17.0" prefHeight="52.0" prefWidth="184.0" text="Department List" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="17.0">
+      <Label layoutX="30.0" layoutY="17.0" prefHeight="52.0" prefWidth="184.0" text="Doctor List" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="17.0">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -35,69 +35,73 @@
                   <TableColumn fx:id="GenderFxid" maxWidth="513.0" prefWidth="36.0" text="Sex" />
                   <TableColumn fx:id="BGFxid" prefWidth="75.0" text="Blood Group" />
                   <TableColumn fx:id="DOBFxid" prefWidth="75.0" text="DOB" />
-                  <TableColumn fx:id="UserRoleFxid" prefWidth="75.0" text="User Role" />
                   <TableColumn fx:id="JoinDateFxid" prefWidth="75.0" text="JoinDate" />
                   <TableColumn fx:id="StatusFxid" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="FeesFxid" prefWidth="75.0" text="Fees" />
               </columns>
             </TableView>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="283.0">
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="274.0">
                <children>
-                  <TextField prefHeight="25.0" promptText="Enter First Name">
+                  <TextField fx:id="DoctorFname_fxid" prefHeight="25.0" promptText="Enter First Name">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter Last Name">
+                  <TextField fx:id="DoctorLname_fxid" promptText="Enter Last Name">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <ComboBox prefHeight="25.0" prefWidth="284.0" promptText="Select Department">
+                  <ComboBox fx:id="DoctorDept_fxid" prefHeight="25.0" prefWidth="284.0" promptText="Select Department">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <TextField promptText="Enter Email Address">
+                  <TextField fx:id="DoctorEmail_fxid" promptText="Enter Email Address">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter Mobile No">
+                  <TextField fx:id="DoctorMobile_fxid" promptText="Enter Mobile No">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter Phone No">
+                  <TextField fx:id="DoctorPhone_fxid" promptText="Enter Phone No">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter Address">
+                  <TextField fx:id="DoctorAddress_fxid" promptText="Enter Address">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Enter Fees">
+                  <TextField fx:id="DoctorFee_fxid" promptText="Enter Fees">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <DatePicker prefHeight="25.0" prefWidth="287.0" promptText="Select Date of Birth">
+                  <DatePicker fx:id="DoctorDob_fxid" prefHeight="25.0" prefWidth="287.0" promptText="Select Date of Birth">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <ComboBox prefHeight="25.0" prefWidth="288.0" promptText="Select Gender">
+                  <ComboBox fx:id="DoctorBG_fxid1" prefHeight="25.0" prefWidth="288.0" promptText="Select Blood Group">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <DatePicker prefHeight="25.0" prefWidth="287.0" promptText="Select Joining Date">
+                  <ComboBox fx:id="DoctorGender_fxid" prefHeight="25.0" prefWidth="288.0" promptText="Select Gender">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <DatePicker fx:id="DoctorJoin_fxid" prefHeight="25.0" prefWidth="287.0" promptText="Select Joining Date">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></DatePicker>
-                  <ComboBox prefHeight="25.0" prefWidth="284.0" promptText="Current Status" />
+                  <ComboBox fx:id="DoctorStatus_fxid" prefHeight="25.0" prefWidth="284.0" promptText="Current Status" />
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
@@ -107,23 +111,11 @@
       </HBox>
       <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
          <children>
-            <Button mnemonicParsing="false" text="Insert">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Update">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Delete">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Reset" />
-         </children>
-      </HBox>
+            <Button mnemonicParsing="false" onAction="#DoctorInsertBtn" text="Insert" />
+            <Button mnemonicParsing="false" onAction="#DoctorUpdateBtn" text="Update" />
+            <Button mnemonicParsing="false" onAction="#DoctorDeleteBtn" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#DoctorRefreshBtn" text="Refresh" />
+            <Button mnemonicParsing="false" onAction="#DoctorResetBtn" text="Reset" />
+         </children></HBox>
    </children>
 </AnchorPane>
