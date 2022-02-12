@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.Notifications;
 
 import java.net.URL;
@@ -47,6 +48,7 @@ public class DepartmentController implements Initializable {
     DepartmentTableModel dept;
 
     Connection conn;
+    int index=-1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -132,9 +134,28 @@ public class DepartmentController implements Initializable {
 
 
     public void UpdateBtn(ActionEvent actionEvent) {
+        PreparedStatement pst = null;
+        Connection con;
+        try {
+
+
+            String depname=Deptnamefxid.getText();
+            String des= Des_fxid.getText();
+            String sta= Status_fxid.getText();
+            String sql = "Update Department  set DepartmentName=  '"+depname+"', Description= '"+des+"',Status= '"+sta+"' WHERE Department.DepartmentName= '"+depname+"'";
+            pst = conn.prepareStatement(sql);
+            pst.executeUpdate();
+
+            Notifications.create()
+                    .title("Info")
+                    .text("Updated Successfully")
+                    .show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void DeleteBtn(ActionEvent actionEvent) {
+        public void DeleteBtn(ActionEvent actionEvent) {
         PreparedStatement pst = null;
         Connection con;
         try {
@@ -161,6 +182,20 @@ public class DepartmentController implements Initializable {
 
         departmentList.clear();
         fetch_info();
+
+
+
+    }
+
+    public void SelectedBtn(MouseEvent mouseEvent) {
+        index=DepartmentTableFxid.getSelectionModel().getSelectedIndex();
+        if(index<=-1)
+        {
+            return;
+        }
+        Deptnamefxid.setText(DepartmentNameFxid.getCellData(index).toString());
+        Des_fxid.setText(DescriptionFxid.getCellData(index).toString());
+        Status_fxid.setText(StatusFxid.getCellData(index).toString());
 
 
 
