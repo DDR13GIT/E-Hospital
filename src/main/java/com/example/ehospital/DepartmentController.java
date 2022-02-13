@@ -142,7 +142,6 @@ public class DepartmentController implements Initializable {
         Connection con;
         try {
 
-
             String depname=Deptnamefxid.getText();
             String des= Des_fxid.getText();
             String sta= Status_fxid.getText();
