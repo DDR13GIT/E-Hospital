@@ -18,7 +18,7 @@
    <children>
       <HBox alignment="CENTER" AnchorPane.topAnchor="20.0">
          <children>
-            <Button mnemonicParsing="false" text="Back">
+            <Button mnemonicParsing="false" onAction="#AppointmentBackBTN" text="Back">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
@@ -32,14 +32,14 @@
       </HBox>
       <HBox layoutX="20.0" layoutY="94.0" prefHeight="622.0" prefWidth="1201.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <children>
-            <TableView fx:id="DepartmentTableFxid" HBox.hgrow="ALWAYS">
+            <TableView fx:id="AppointmentTableFxid" HBox.hgrow="ALWAYS">
               <columns>
-                  <TableColumn fx:id="AppointmentColumnSerialNoFxid" prefWidth="78.0" text="SerialNo" />
+                  <TableColumn fx:id="AppointmentserialNoFxid" prefWidth="78.0" text="SerialNo" />
                   <TableColumn fx:id="AppointmnetIdFxid" prefWidth="106.0" text="AppointmentID" />
                   <TableColumn fx:id="AppointmentPatientIdFxid" minWidth="0.0" prefWidth="164.0" text="Patient ID" />
-                  <TableColumn fx:id="AppointmentDepartmentNameFxid" prefWidth="172.0" text="Department" />
+                  <TableColumn fx:id="AppointmentDoctortNameFxid" prefWidth="172.0" text="Doctor Name" />
                 <TableColumn fx:id="AppointmentDoctorIdFxid" minWidth="0.0" prefWidth="164.0" text="Doctor ID" />
-                  <TableColumn fx:id="AppointmentSerialNoFxid" minWidth="0.0" prefWidth="154.0" text="Appointment Serial No" />
+                  <TableColumn fx:id="AppointmentDepartmentFxid" minWidth="0.0" prefWidth="154.0" text="Department" />
                   <TableColumn fx:id="AppointmentProblemDesFxid" minWidth="0.0" prefWidth="174.0" text="Problem Description" />
                   <TableColumn fx:id="AppointmentDateFxid" minWidth="0.0" prefWidth="164.0" text="Appointment Date" />
                   <TableColumn fx:id="AppointmentTimeFxid" minWidth="0.0" prefWidth="164.0" text="Appointment Time" />
@@ -47,37 +47,37 @@
             </TableView>
             <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="283.0">
                <children>
-                  <TextField prefHeight="25.0" promptText="Enter Patient ID">
+                  <TextField fx:id="ApnPatientID_tf" prefHeight="25.0" promptText="Enter Patient ID">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <ComboBox prefHeight="25.0" prefWidth="288.0" promptText="Select Department" VBox.vgrow="ALWAYS">
+                  <ComboBox fx:id="ApnDepartment_tf" onAction="#selectDeptOnActionBTN" prefHeight="25.0" prefWidth="288.0" promptText="Select Department" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <ComboBox prefHeight="25.0" prefWidth="288.0" promptText="Select Doctor ID">
+                  <ComboBox fx:id="ApnDoctorName_tf1" onAction="#selectDoctNameOnActionBTN" prefHeight="25.0" prefWidth="288.0" promptText="Select Doctor Name">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <TextArea prefHeight="88.0" prefWidth="268.0" promptText="Enter Short Description">
+                  <ComboBox fx:id="ApnDoctorID_tf" prefHeight="25.0" prefWidth="288.0" promptText="Select Doctor ID">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <TextArea fx:id="ApnProbDes_tf" prefHeight="88.0" prefWidth="268.0" promptText="Enter Short Description">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextArea>
-                  <DatePicker prefHeight="25.0" prefWidth="309.0" promptText="Select Appointment Date" VBox.vgrow="ALWAYS">
+                  <DatePicker fx:id="ApnAppoinmentDate_tf" prefHeight="25.0" prefWidth="309.0" promptText="Select Appointment Date" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <ComboBox prefHeight="25.0" prefWidth="288.0" promptText="Select Current Status">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                  <TextField promptText="Enter Appointment Time" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="ApnAppoinmentTime_tf" promptText="Enter Appointment Time" VBox.vgrow="ALWAYS" />
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
@@ -87,22 +87,27 @@
       </HBox>
       <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
          <children>
-            <Button mnemonicParsing="false" text="Update">
+            <Button mnemonicParsing="false" onAction="#AppointmentUpdateBTN" text="Update">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Insert">
+            <Button mnemonicParsing="false" onAction="#AppointmentInsertBTN" text="Insert">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Delete">
+            <Button mnemonicParsing="false" onAction="#AppointmentDeleteBTN" text="Delete">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Reset" />
+            <Button mnemonicParsing="false" onAction="#AppointmentResetBTN" text="Reset" />
+            <Button mnemonicParsing="false" onAction="#AppointmentRefreshBTN" text="Refresh">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

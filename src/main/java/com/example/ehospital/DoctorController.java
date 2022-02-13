@@ -52,6 +52,8 @@ public class DoctorController implements Initializable {
     @FXML
     private TableColumn<DoctorTableModel, String> DOBFxid;
     @FXML
+    private TableColumn<DoctorTableModel, String> UserRoleFxid;
+    @FXML
     private TableColumn<DoctorTableModel, String> JoinDateFxid;
     @FXML
     private TableColumn<DoctorTableModel, String> StatusFxid;
