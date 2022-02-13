@@ -50,6 +50,13 @@ public class AdminDashboardController {
         window.setScene(scene1);
         window.show();
     }
+    public void scheduleBtn(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("ScheduleList.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
+    }
     public void billingBtn(ActionEvent actionEvent) throws IOException {
         Parent root1 = FXMLLoader.load(getClass().getResource("Billing.fxml"));
         Scene scene1 = new Scene(root1);

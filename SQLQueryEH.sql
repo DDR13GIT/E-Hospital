@@ -59,3 +59,12 @@ create table LoginInfo
     Password varchar(50) not null,
     UserRole varchar(50)
 );
+
+-- CREATE TABLE Product
+-- (
+--     ID INTEGER IDENTITY(1,1) NOT NULL
+--         CONSTRAINT UC_Product_ID UNIQUE,
+--     Product_No AS RIGHT ('PDT0000' + CAST(ID AS VARCHAR(10)), 10) PERSISTED
+--            CONSTRAINT PK_Product PRIMARY KEY CLUSTERED,
+--     Product_Name VARCHAR(50) NOT NULL
+-- )

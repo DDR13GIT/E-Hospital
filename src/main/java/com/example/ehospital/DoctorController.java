@@ -23,9 +23,7 @@ import java.util.ResourceBundle;
 public class DoctorController implements Initializable {
 
     ObservableList<DoctorTableModel> doctorList = FXCollections.observableArrayList();
-   final ObservableList dept = FXCollections.observableArrayList();
-
-//    ComboBox comboBox = new ComboBox(dept);
+    final ObservableList dept = FXCollections.observableArrayList();
 
 
     @FXML
@@ -52,8 +50,6 @@ public class DoctorController implements Initializable {
     private TableColumn<DoctorTableModel, String> BGFxid;
     @FXML
     private TableColumn<DoctorTableModel, String> DOBFxid;
-    @FXML
-    private TableColumn<DoctorTableModel, String> UserRoleFxid;
     @FXML
     private TableColumn<DoctorTableModel, String> JoinDateFxid;
     @FXML
@@ -224,7 +220,7 @@ public class DoctorController implements Initializable {
             pst = conn.prepareStatement(query);
             String doctorFname = DoctorFname_fxid.getText();
             String doctorLname = DoctorLname_fxid.getText();
-            String doctorDept=DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
+            String doctorDept = DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
             String doctorEmail = DoctorEmail_fxid.getText();
             String doctorMobile = DoctorMobile_fxid.getText();
             String doctorPhone = DoctorPhone_fxid.getText();

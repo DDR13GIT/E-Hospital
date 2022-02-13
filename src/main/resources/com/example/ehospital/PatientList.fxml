@@ -35,13 +35,13 @@
                     <columns>
                         <TableColumn fx:id="PatientSerialNoFxid" prefWidth="78.0" text="SerialNo" />
                         <TableColumn fx:id="PatientFirstNameFxid" prefWidth="106.0" text="FirstName" />
-                        <TableColumn fx:id="PatientLastNameFxid" prefWidth="228.0" text="LastName" />
-                        <TableColumn fx:id="PatientEmailFxid" minWidth="0.0" prefWidth="326.0" text="EmailAddress" />
-                        <TableColumn fx:id="PatientMobileFxid" maxWidth="440.0" prefWidth="139.0" text="MobileNo" />
-                  <TableColumn fx:id="PatientPhoneFxid" prefWidth="78.0" text="PhoneNo" />
-                  <TableColumn fx:id="PatientAddressFxid" prefWidth="106.0" text="Address" />
-                  <TableColumn fx:id="PatientGenderFxid" prefWidth="228.0" text="Gender" />
-                  <TableColumn fx:id="PatientBloodGroupFxid" minWidth="0.0" prefWidth="326.0" text="BloodGroup" />
+                        <TableColumn fx:id="PatientLastNameFxid" prefWidth="115.0" text="LastName" />
+                        <TableColumn fx:id="PatientEmailFxid" minWidth="0.0" prefWidth="123.0" text="EmailAddress" />
+                        <TableColumn fx:id="PatientMobileFxid" maxWidth="455.0" prefWidth="72.0" text="MobileNo" />
+                  <TableColumn fx:id="PatientPhoneFxid" prefWidth="77.0" text="PhoneNo" />
+                  <TableColumn fx:id="PatientAddressFxid" prefWidth="148.0" text="Address" />
+                  <TableColumn fx:id="PatientGenderFxid" prefWidth="127.0" text="Gender" />
+                  <TableColumn fx:id="PatientBloodGroupFxid" minWidth="0.0" prefWidth="351.0" text="BloodGroup" />
                   <TableColumn fx:id="PatientDobFxid" maxWidth="440.0" prefWidth="139.0" text="Dob" />
                   <TableColumn fx:id="PatientCreateDateFxid" minWidth="0.0" prefWidth="326.0" text="CreateDate" />
                   <TableColumn fx:id="PatientStatusFxid" maxWidth="440.0" prefWidth="139.0" text="Status" />
