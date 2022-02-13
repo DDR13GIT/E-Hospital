@@ -301,6 +301,30 @@ public class AppointmentController implements Initializable {
     @FXML
     void AppointmentUpdateBTN(ActionEvent event) {
 
+        PreparedStatement pst = null;
+        Connection con;
+        try {
+
+            LocalDate apntDate = ApnAppoinmentDate_tf.getValue();
+            String apntTime = ApnAppoinmentTime_tf.getText();
+            String apntProbDes = ApnProbDes_tf.getText();
+            String apntPatientId = ApnPatientID_tf.getText();
+            String apntDept = ApnDepartment_tf.getSelectionModel().getSelectedItem().toString();
+            String apntDoctorId = ApnDoctorID_tf.getSelectionModel().getSelectedItem().toString();
+            String apntDocName = ApnDoctorName_tf1.getSelectionModel().getSelectedItem().toString();
+
+            String sql = "Update Appointment  set AppointmentDate=  '"+apntDate+"', AppoinmentTime= '"+apntTime+"',ProblemDescription= '"+apntProbDes+"', PatientId= '"+apntPatientId+"',Department= '"+apntDept+"', DoctorId= '"+ apntDoctorId+"',AppointmentId= '"+apntDocName+"'' WHERE Appointment.DoctorName= '"+apntDocName+"'";
+            pst = conn.prepareStatement(sql);
+            pst.executeUpdate();
+
+            Notifications.create()
+                    .title("Info")
+                    .text("Updated Successfully")
+                    .show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
