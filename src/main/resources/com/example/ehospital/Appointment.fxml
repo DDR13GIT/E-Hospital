@@ -103,6 +103,11 @@
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#AppointmentResetBTN" text="Reset" />
+            <Button mnemonicParsing="false" onAction="#AppointmentRefreshBTN" text="Refresh">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

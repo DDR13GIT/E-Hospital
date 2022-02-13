@@ -28,7 +28,7 @@ public class AppointmentController implements Initializable {
     final ObservableList ApnDoctId = FXCollections.observableArrayList();
 
     @FXML
-    private TableView<AppoinmentTableModel> AppoinmentTableFxid;
+    private TableView<AppoinmentTableModel> AppointmentTableFxid;
 
     @FXML
     private TableColumn<AppoinmentTableModel, String> AppointmentDateFxid;
@@ -59,29 +59,41 @@ public class AppointmentController implements Initializable {
 
 
     @FXML
-        private DatePicker ApnAppoinmentDate_tf;
+    private DatePicker ApnAppoinmentDate_tf;
 
-        @FXML
-        private TextField ApnAppoinmentTime_tf;
+    @FXML
+    private TextField ApnAppoinmentTime_tf;
 
-        @FXML
-        private ComboBox<String> ApnDepartment_tf;
+    @FXML
+    private ComboBox<String> ApnDepartment_tf;
 
-        @FXML
-        private ComboBox<String> ApnDoctorID_tf;
+    @FXML
+    private ComboBox<String> ApnDoctorID_tf;
 
-        @FXML
-        private ComboBox<String> ApnDoctorName_tf1;
+    @FXML
+    private ComboBox<String> ApnDoctorName_tf1;
 
-        @FXML
-        private TextField ApnPatientID_tf;
+    @FXML
+    private TextField ApnPatientID_tf;
 
-        @FXML
-        private TextArea ApnProbDes_tf;
+    @FXML
+    private TextArea ApnProbDes_tf;
 
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
+
+
+    public void initialize(URL location, ResourceBundle resources) {
+        DatabaseConnect.Connection();
+        conn = DatabaseConnect.con;
+        fetch_info();
+
+
+        fillDeptComboBox();
+        ApnDepartment_tf.setItems(ApnDept);
+
+    }
 
     public void fillDeptComboBox() {
         ApnDept.clear();
@@ -103,7 +115,7 @@ public class AppointmentController implements Initializable {
 
     }
 
-    public void selectDeptOnActionBTN(ActionEvent event){
+    public void selectDeptOnActionBTN(ActionEvent event) {
         String selectedItem = ApnDepartment_tf.getSelectionModel().getSelectedItem().toString();
         fillDoctNameComboBox(selectedItem);
 
@@ -130,7 +142,7 @@ public class AppointmentController implements Initializable {
         ApnDoctorName_tf1.setItems(ApnDoctName);
     }
 
-    public void selectDoctNameOnActionBTN(ActionEvent event){
+    public void selectDoctNameOnActionBTN(ActionEvent event) {
         String selectedItem = ApnDoctorName_tf1.getSelectionModel().getSelectedItem().toString();
         fillDoctIDComboBox(selectedItem);
 
@@ -158,18 +170,6 @@ public class AppointmentController implements Initializable {
         ApnDoctorID_tf.setItems(ApnDoctId);
     }
 
-    public void initialize(URL location, ResourceBundle resources) {
-        DatabaseConnect.Connection();
-        conn = DatabaseConnect.con;
-        fetch_info();
-
-
-        fillDeptComboBox();
-        ApnDepartment_tf.setItems(ApnDept);
-
-
-
-    }
 
     private void fetch_info() {
         AppointmentserialNoFxid.setCellValueFactory(new PropertyValueFactory<>("SerialNo"));
@@ -200,7 +200,7 @@ public class AppointmentController implements Initializable {
 
                 appointmentList.add(new AppoinmentTableModel(appointmentDate, appointmentTime, probDes, patientId, dept, appoinmentDate, doctId, appointmentId));
             }
-            AppoinmentTableFxid.setItems(appointmentList);
+            AppointmentTableFxid.setItems(appointmentList);
         } catch (Exception e) {
 
         }
@@ -208,105 +208,106 @@ public class AppointmentController implements Initializable {
 
 
     @FXML
-        void AppointmentBackBTN(ActionEvent event) throws SQLException, IOException {
+    void AppointmentBackBTN(ActionEvent event) throws SQLException, IOException {
 
-            Parent root1 = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
-            Scene scene1 = new Scene(root1);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene1);
-            window.show();
+        Parent root1 = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
+        Scene scene1 = new Scene(root1);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene1);
+        window.show();
+    }
+
+    AppoinmentTableModel apnt;
+
+    @FXML
+    void AppointmentDeleteBTN(ActionEvent event) {
+
+        PreparedStatement pst = null;
+        Connection con;
+        try {
+
+            apnt = AppointmentTableFxid.getSelectionModel().getSelectedItem();
+            String sql = "DELETE FROM Appointment  WHERE Appointment.AppointmentId=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, apnt.getAppointmentId());
+            pst.executeUpdate();
+            Notifications.create()
+                    .title("Info")
+                    .text("Deleted Successfully")
+                    .show();
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
-        AppoinmentTableModel apnt;
-        @FXML
-        void AppointmentDeleteBTN(ActionEvent event) {
+    }
 
-            PreparedStatement pst = null;
-            Connection con;
-            try {
+    @FXML
+    void AppointmentInsertBTN(ActionEvent event) throws SQLException {
+        PreparedStatement pst = null;
+        try {
+            String query = " INSERT INTO Appointment (AppointmentDate,AppointmentTime,ProblemDescription,PatientId,Department,DoctorId,DoctorName) VALUES(?,?,?,?,?,?,?)";
 
-                apnt = AppoinmentTableFxid.getSelectionModel().getSelectedItem();
-                String sql = "DELETE FROM Appointment  WHERE Appointment.AppointmentId=?";
-                pst = conn.prepareStatement(sql);
-                pst.setString(1, apnt.getAppointmentId());
+            pst = conn.prepareStatement(query);
+            LocalDate apntDate = ApnAppoinmentDate_tf.getValue();
+            String apntTime = ApnAppoinmentTime_tf.getText();
+            String apntProbDes = ApnProbDes_tf.getText();
+            String apntPatientId = ApnPatientID_tf.getText();
+            String apntDept = ApnDepartment_tf.getSelectionModel().getSelectedItem().toString();
+            String apntDoctorId = ApnDoctorID_tf.getSelectionModel().getSelectedItem().toString();
+            String apntDocName = ApnDoctorName_tf1.getSelectionModel().getSelectedItem().toString();
+
+
+            if (apntDate.equals("") || apntTime.equals("") || apntProbDes.equals("")
+                    || apntPatientId.equals("") || apntDept.equals("") ||
+                    apntDoctorId.equals("") || apntDocName.equals("")) {
+                Notifications.create()
+                        .title("Warning")
+                        .text("Please fillup all the information")
+                        .showError();
+
+            } else {
+
+                pst.setDate(1, Date.valueOf(apntDate));
+                pst.setString(2, apntTime);
+                pst.setString(3, apntProbDes);
+                pst.setString(4, apntPatientId);
+                pst.setString(5, apntDept);
+                pst.setString(6, apntDoctorId);
+                pst.setString(7, apntDocName);
+
                 pst.executeUpdate();
                 Notifications.create()
                         .title("Info")
-                        .text("Deleted Successfully")
+                        .text("Added Successfully")
                         .show();
-
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                System.out.println("inserted");
             }
 
-        }
-
-        @FXML
-        void AppointmentInsertBTN(ActionEvent event) throws SQLException  {
-            PreparedStatement pst=null;
-            try {
-                String query = " INSERT INTO Appointment (AppointmentDate,AppointmentTime,ProblemDescription,PatientId,Department,DoctorId,DoctorName) VALUES(?,?,?,?,?,?,?)";
-
-                pst = conn.prepareStatement(query);
-                LocalDate apntDate = ApnAppoinmentDate_tf.getValue();
-                String apntTime = ApnAppoinmentTime_tf.getText();
-                String apntProbDes = ApnProbDes_tf.getText();
-                String apntPatientId = ApnPatientID_tf.getText();
-                String apntDept=ApnDepartment_tf.getSelectionModel().getSelectedItem().toString();
-                String apntDoctorId = ApnDoctorID_tf.getSelectionModel().getSelectedItem().toString();
-                String apntDocName = ApnDoctorName_tf1.getSelectionModel().getSelectedItem().toString();
-
-
-
-                if (apntDate.equals("") ||  apntTime.equals("") || apntProbDes.equals("")
-                        || apntPatientId.equals("") ||  apntDept.equals("") ||
-                        apntDoctorId.equals("") || apntDocName.equals("")) {
-                    Notifications.create()
-                            .title("Warning")
-                            .text("Please fillup all the information")
-                            .showError();
-
-                } else {
-
-                    pst.setDate(1, Date.valueOf(apntDate));
-                    pst.setString(2, apntTime);
-                    pst.setString(3, apntProbDes);
-                    pst.setString(4, apntPatientId);
-                    pst.setString(5, apntDept);
-                    pst.setString(6, apntDoctorId);
-                    pst.setString(7, apntDocName);
-
-                    pst.executeUpdate();
-                    Notifications.create()
-                            .title("Info")
-                            .text("Added Successfully")
-                            .show();
-                    System.out.println("inserted");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-            fillDeptComboBox();
-         //   fillDoctComboBox();
+        } catch (Exception e) {
+            e.printStackTrace();
 
         }
 
-        @FXML
-        void AppointmentResetBTN(ActionEvent event) {
-            appointmentList.clear();
-            fetch_info();
+    }
 
-        }
-
-        @FXML
-        void AppointmentUpdateBTN(ActionEvent event) {
-
-        }
+    @FXML
+    void AppointmentResetBTN(ActionEvent event) {
 
 
+    }
+
+    @FXML
+    void AppointmentUpdateBTN(ActionEvent event) {
+
+    }
+
+    @FXML
+    void AppointmentRefreshBTN(ActionEvent event) {
+        appointmentList.clear();
+        fetch_info();
+    }
 }
 
 
