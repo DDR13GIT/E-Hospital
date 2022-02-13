@@ -313,7 +313,7 @@ public class AppointmentController implements Initializable {
             String apntDoctorId = ApnDoctorID_tf.getSelectionModel().getSelectedItem().toString();
             String apntDocName = ApnDoctorName_tf1.getSelectionModel().getSelectedItem().toString();
 
-            String sql = "Update Appointment  set AppointmentDate=  '"+apntDate+"', AppoinmentTime= '"+apntTime+"',ProblemDescription= '"+apntProbDes+"', PatientId= '"+apntPatientId+"',Department= '"+apntDept+"', DoctorId= '"+ apntDoctorId+"',AppointmentId= '"+apntDocName+"'' WHERE Appointment.DoctorName= '"+apntDocName+"'";
+            String sql = "Update Appointment  set AppointmentDate=  '"+apntDate+"', AppointmentTime= '"+apntTime+"',ProblemDescription= '"+apntProbDes+"', PatientId= '"+apntPatientId+"',Department= '"+apntDept+"', DoctorId= '"+ apntDoctorId+"',AppointmentId= '"+apntDocName+"'' WHERE Appointment.DoctorName= '"+apntDocName+"'";
             pst = conn.prepareStatement(sql);
             pst.executeUpdate();
 
