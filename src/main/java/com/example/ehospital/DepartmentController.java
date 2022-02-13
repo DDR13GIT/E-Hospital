@@ -200,10 +200,8 @@ public class DepartmentController implements Initializable {
         Deptnamefxid.setText(DepartmentNameFxid.getCellData(index).toString());
         Des_fxid.setText(DescriptionFxid.getCellData(index).toString());
         Status_fxid.setText(StatusFxid.getCellData(index).toString());
-
-
-
     }
+
     public void BackBtn(ActionEvent actionEvent) throws SQLException, IOException {
         Parent root1 = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
         Scene scene1 = new Scene(root1);

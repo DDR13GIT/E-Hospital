@@ -5,7 +5,8 @@ public class DoctorTableModel {
             ,Sex,BloodGroup,DOB,JoinDate,Status;
     private int SerialNo,Fees;
 
-    public DoctorTableModel(String firstName, String lastName, String department, String emailAddress, String mobileNo, String phoneNo, String address, String sex, String bloodGroup, String DOB, String joinDate, String status, int serialNo, int fees) {
+    public DoctorTableModel( int serialNo, String firstName, String lastName, String department, String emailAddress, String mobileNo, String phoneNo, String address, String sex, String bloodGroup, String DOB, String joinDate, String status, int fees) {
+        SerialNo = serialNo;
         FirstName = firstName;
         LastName = lastName;
         Department = department;
@@ -18,7 +19,7 @@ public class DoctorTableModel {
         this.DOB = DOB;
         JoinDate = joinDate;
         Status = status;
-        SerialNo = serialNo;
+
         Fees = fees;
     }
 

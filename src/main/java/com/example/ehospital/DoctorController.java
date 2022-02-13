@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
@@ -55,7 +56,7 @@ public class DoctorController implements Initializable {
     @FXML
     private TableColumn<DoctorTableModel, String> StatusFxid;
     @FXML
-    private TableColumn<DoctorTableModel, String> FeesFxid;
+    private TableColumn<DoctorTableModel, Integer> FeesFxid;
     @FXML
     private TableColumn<DoctorTableModel, String> SerialNoFxid;
 
@@ -178,7 +179,7 @@ public class DoctorController implements Initializable {
                 int fees = rs.getInt("Fees");
 
                 int serialNo = rs.getInt("SerialNo");
-                doctorList.add(new DoctorTableModel(firstName, lastName, department, emailAddress, mobile, phone, address, gender, bloodgroup, dob, joindate, status, fees, serialNo));
+                doctorList.add(new DoctorTableModel( serialNo, firstName, lastName, department, emailAddress, mobile, phone, address, gender, bloodgroup, dob, joindate, status, fees));
             }
             DoctorTableFxid.setItems(doctorList);
         } catch (Exception e) {
@@ -284,10 +285,59 @@ public class DoctorController implements Initializable {
     }
 
     @FXML
-    void DoctorUpdateBtn(ActionEvent event) {
+    public void DoctorUpdateBtn(ActionEvent actionEvent) {
+        PreparedStatement pst = null;
+        Connection con;
+        try {
 
+
+            String DoctorFname_fxid_query=DoctorFname_fxid.getText();
+            String DoctorLname_fxid_query= DoctorLname_fxid.getText();
+            String DoctorDept_fxid_query= DoctorDept_fxid.getSelectionModel().getSelectedItem().toString();
+            String DoctorEmail_fxid_query=DoctorEmail_fxid.getText();
+            String DoctorMobile_fxid_query=DoctorMobile_fxid.getText();
+            String DoctorPhone_fxid_query=DoctorPhone_fxid.getText();
+            String DoctorAddress_fxid_query=DoctorAddress_fxid.getText();
+            String DoctorFee_fxid_query=DoctorFee_fxid.getText();
+            String DoctorDob_fxid_query=DoctorDob_fxid.getValue().toString();
+            String DoctorBG_fxid1_query=DoctorBG_fxid1.getSelectionModel().getSelectedItem().toString();
+            String DoctorGender_fxid_query=DoctorGender_fxid.getSelectionModel().getSelectedItem().toString();
+            String DoctorJoin_fxid_query=DoctorJoin_fxid.getValue().toString();
+            String DoctorStatus_fxid_query=DoctorStatus_fxid.getSelectionModel().getSelectedItem().toString();
+
+            String sql = "Update DoctorTable  set FirstName=  '"+DoctorFname_fxid_query+"', LastName= '"+DoctorLname_fxid_query+"',Department= '"+DoctorDept_fxid_query+"',EmailAddress= '"+DoctorEmail_fxid_query+"',MobileNo= '"+DoctorMobile_fxid_query+"',PhoneNo= '"+DoctorPhone_fxid_query+"',Address= '"+DoctorAddress_fxid_query+"',Fees= '"+DoctorFee_fxid_query+"',DOB= '"+DoctorDob_fxid_query+"',BloodGroup= '"+DoctorBG_fxid1_query+"',Sex= '"+DoctorGender_fxid_query+"',JoinDate= '"+DoctorJoin_fxid_query+"',Status= '"+DoctorStatus_fxid_query+"' WHERE DoctorTable.MobileNo= '"+DoctorMobile_fxid_query+"'";
+            pst = conn.prepareStatement(sql);
+            pst.executeUpdate();
+
+            Notifications.create()
+                    .title("Info")
+                    .text("Updated Successfully")
+                    .show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
+    int index=-1;
+    public void SelectedBtn(MouseEvent mouseEvent) {
+        index=DoctorTableFxid.getSelectionModel().getSelectedIndex();
+        if(index<=-1)
+        {
+            return;
+        }
+        DoctorFname_fxid.setText(FnameFxid.getCellData(index).toString());
+        DoctorLname_fxid.setText(LnameFxid.getCellData(index).toString());
+      //  DoctorDept_fxid.setItems(StatusFxid.getCellData(index).toString());
+        DoctorEmail_fxid.setText(EmailAddressFxid.getCellData(index).toString());
+        DoctorMobile_fxid.setText(MobileFxid.getCellData(index).toString());
+        DoctorPhone_fxid.setText(PhoneFxid.getCellData(index).toString());
+        DoctorAddress_fxid.setText(AddressFxid.getCellData(index).toString());
+        DoctorFee_fxid.setText(FeesFxid.getCellData(index).toString());
+       // DoctorDob_fxid.setText(StatusFxid.getCellData(index).toString());
+       // DoctorBG_fxid1.setText(StatusFxid.getCellData(index).toString());
+//        DoctorGender_fxid.setText(StatusFxid.getCellData(index).toString());
+//        DoctorJoin_fxid.setText(StatusFxid.getCellData(index).toString());
+//        DoctorStatus_fxid.setText(StatusFxid.getCellData(index).toString());
+    }
     public void BackBtn(ActionEvent actionEvent) throws SQLException, IOException {
         Parent root1 = FXMLLoader.load(getClass().getResource("AdminDashboard.fxml"));
         Scene scene1 = new Scene(root1);

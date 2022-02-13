@@ -31,7 +31,7 @@
       </HBox>
       <HBox layoutX="20.0" layoutY="94.0" prefHeight="622.0" prefWidth="1201.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <children>
-            <TableView fx:id="DoctorTableFxid" prefHeight="636.0" prefWidth="880.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="DoctorTableFxid" onMouseClicked="#SelectedBtn" prefHeight="636.0" prefWidth="880.0" HBox.hgrow="ALWAYS">
               <columns>
                   <TableColumn fx:id="SerialNoFxid" prefWidth="78.0" text="SerialNo" />
                   <TableColumn fx:id="FnameFxid" prefWidth="106.0" text="First Name" />

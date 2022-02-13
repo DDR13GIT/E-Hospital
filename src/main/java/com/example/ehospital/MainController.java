@@ -101,6 +101,11 @@ public class MainController  implements Initializable {
 
 
     }
+   public void  autofill(ActionEvent actionEvent) {
+        IdField.setText("admin");
+        PasswordField.setText("admin");
+        comb.setValue("Admin");
+   }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
