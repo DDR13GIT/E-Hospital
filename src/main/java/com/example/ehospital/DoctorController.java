@@ -25,9 +25,6 @@ public class DoctorController implements Initializable {
     ObservableList<DoctorTableModel> doctorList = FXCollections.observableArrayList();
    final ObservableList dept = FXCollections.observableArrayList();
 
-//    ComboBox comboBox = new ComboBox(dept);
-
-
     @FXML
     private TableView<DoctorTableModel> DoctorTableFxid;
     @FXML

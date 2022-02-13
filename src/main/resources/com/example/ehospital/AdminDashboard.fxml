@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="dashboardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.AdminDashboardController">
    <children>
       <BorderPane fx:id="mainPane" prefWidth="1300.0" style="-fx-background-color: #F5F5FC;">
@@ -94,7 +93,7 @@
                               <Insets left="50.0" />
                            </padding>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="585.0" prefHeight="82.0" prefWidth="270.0" styleClass="navPaneBtn" text="Appointment" textAlignment="RIGHT" textFill="#200e32">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="585.0" onAction="#appointmentBtn" prefHeight="82.0" prefWidth="270.0" styleClass="navPaneBtn" text="Appointment" textAlignment="RIGHT" textFill="#200e32">
                            <font>
                               <Font name="BMWHelvetica-Heavy" size="15.0" />
                            </font>
@@ -109,7 +108,7 @@
                               <Insets left="50.0" />
                            </padding>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="82.0" prefWidth="270.0" styleClass="navPaneBtn" text="Billing" textAlignment="RIGHT" textFill="#200e32">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#billingBtn" prefHeight="82.0" prefWidth="270.0" styleClass="navPaneBtn" text="Billing" textAlignment="RIGHT" textFill="#200e32">
                            <font>
                               <Font name="BMWHelvetica-Heavy" size="15.0" />
                            </font>
