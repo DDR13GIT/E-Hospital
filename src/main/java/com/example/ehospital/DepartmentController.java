@@ -140,6 +140,25 @@ public class DepartmentController implements Initializable {
 
 
     public void UpdateBtn(ActionEvent actionEvent) {
+        PreparedStatement pst = null;
+        Connection con;
+        try {
+
+
+            String depname=Deptnamefxid.getText();
+            String des= Des_fxid.getText();
+            String sta= Status_fxid.getText();
+            String sql = "Update Department  set DepartmentName=  '"+depname+"', Description= '"+des+"',Status= '"+sta+"' WHERE Department.DepartmentName= '"+depname+"'";
+            pst = conn.prepareStatement(sql);
+            pst.executeUpdate();
+
+            Notifications.create()
+                    .title("Info")
+                    .text("Updated Successfully")
+                    .show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void DeleteBtn(ActionEvent actionEvent) {
