@@ -33,6 +33,7 @@ public class DepartmentController implements Initializable {
     @FXML
     public TextField DeptIdid;
 
+
     @FXML
     private TableView<DepartmentTableModel> DepartmentTableFxid;
     @FXML
