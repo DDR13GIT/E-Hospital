@@ -176,10 +176,10 @@ public class BillingController implements Initializable {
                     docff=rs2.getString("docfee");
                 }
                 int afe=Integer.parseInt(docff);
-                int total=afe+addbi;
-                double ds2=ds/100;
+                double total=afe+addbi;
+                double ds2=((double)ds)/100;
                 System.out.println(ds2);
-                double totals=(int)(total*ds2);
+                double totals=(total*ds2);
                 int totalfinal=(int) (total-totals);
                 System.out.println(totalfinal);
                 String query2 = " UPDATE Billing set AppointmentID= '"+apid+"' , Total= '"+totalfinal+"' WHERE  Billing.PatientId='"+ptid+"' and Billing.BillDate='"+bd+"'  ";
