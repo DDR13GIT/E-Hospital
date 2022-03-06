@@ -2,8 +2,6 @@ package com.example.ehospital;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,54 +9,54 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Doctor_AppointmentController implements Initializable {
 
-    ObservableList<Doctor_AppoinmentTableModel> appointmentList = FXCollections.observableArrayList();
+    public TextField keywordTextField;
+    ObservableList<AppoinmentTableModel> appointmentList = FXCollections.observableArrayList();
 
 
     @FXML
-    private TableView<Doctor_AppoinmentTableModel> AppointmentTableFxid;
+    private TableView<AppoinmentTableModel> AppointmentTableFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentDateFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentDateFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentDepartmentFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentDepartmentFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentDoctorIdFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentDoctorIdFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentDoctortNameFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentDoctortNameFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentPatientIdFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentPatientIdFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentProblemDesFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentProblemDesFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentTimeFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentTimeFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmentserialNoFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmentserialNoFxid;
 
     @FXML
-    private TableColumn<Doctor_AppoinmentTableModel, String> AppointmnetIdFxid;
+    private TableColumn<AppoinmentTableModel, String> AppointmnetIdFxid;
 
-    @FXML
-    private TextField keywordTextField;
+
 
 
     Connection conn;
@@ -70,9 +68,14 @@ public class Doctor_AppointmentController implements Initializable {
         DatabaseConnect.Connection();
         conn = DatabaseConnect.con;
         fetch_info();
-        search();
 
     }
+
+
+
+
+
+
 
     private void fetch_info() {
         AppointmentserialNoFxid.setCellValueFactory(new PropertyValueFactory<>("SerialNo"));
@@ -101,7 +104,7 @@ public class Doctor_AppointmentController implements Initializable {
                 String doctId = rs.getString("DoctorName");
                 String appointmentId = rs.getString("AppointmentId");
 
-                appointmentList.add(new Doctor_AppoinmentTableModel(appointmentDate, appointmentTime, probDes, patientId, dept, appoinmentDate, doctId, appointmentId));
+                appointmentList.add(new AppoinmentTableModel(appointmentDate, appointmentTime, probDes, patientId, dept, appoinmentDate, doctId, appointmentId));
             }
             AppointmentTableFxid.setItems(appointmentList);
         } catch (Exception e) {
@@ -119,52 +122,6 @@ public class Doctor_AppointmentController implements Initializable {
         window.setScene(scene1);
         window.show();
     }
-
-    public void search()
-
-    {
-        FilteredList<Doctor_AppoinmentTableModel> filteredData = new FilteredList(appointmentList, b -> true);
-
-        keywordTextField.textProperty().addListener((observable,oldvalue,newvalue)->{
-
-            filteredData.setPredicate(Doctor_DoctorTableModel -> {
-
-                if(newvalue.isEmpty() || newvalue==null)
-                {
-                    return true;
-                }
-
-                String searchKeyword = newvalue.toLowerCase();
-
-                if(Doctor_AppoinmentTableModel.get().toLowerCase().indexOf(searchKeyword) >-1)
-                {
-                    return true;
-                }
-                else if(Doctor_AppoinmentTableModel.get().toLowerCase().indexOf(searchKeyword) >-1)
-                {
-                    return true;
-                }
-                else if(Doctor_AppoinmentTableModel.get().toLowerCase().indexOf(searchKeyword) >-1)
-                {
-                    return true;
-                }
-                return false;
-
-
-
-
-            });
-
-        });
-
-        SortedList<Doctor_AppoinmentTableModel> sortData = new SortedList<>(filteredData);
-        sortData.comparatorProperty().bind(AppointmentTableFxid.comparatorProperty());
-
-        AppointmentTableFxid.setItems(sortData);
-
-    }
-
-
 
 }
 

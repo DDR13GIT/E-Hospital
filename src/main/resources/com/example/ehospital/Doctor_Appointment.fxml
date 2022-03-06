@@ -46,7 +46,7 @@
       </HBox>
       <HBox layoutX="39.0" layoutY="731.0" prefHeight="29.0" prefWidth="1153.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="50.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
                <HBox.margin>
                   <Insets left="100.0" top="5.0" />
                </HBox.margin>
