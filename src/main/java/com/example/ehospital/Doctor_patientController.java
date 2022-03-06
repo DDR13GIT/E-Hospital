@@ -2,6 +2,8 @@ package com.example.ehospital;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,108 +24,101 @@ import java.util.ResourceBundle;
 
 public class Doctor_patientController implements Initializable {
 
-    ObservableList<PatientTableModel> patientList = FXCollections.observableArrayList();
+    ObservableList<Doctor_PatientTableModel> patientList = FXCollections.observableArrayList();
 
     @FXML
-    private TableColumn<PatientTableModel, String> PatientAddressFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientAddressFxid;
 
     @FXML
-    private TextField PatientAddress_TfFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientBloodGroupFxid;
 
     @FXML
-    private TableColumn<PatientTableModel, String> PatientBloodGroupFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientCreateDateFxid;
 
     @FXML
-    private ComboBox<String> PatientBlood_CbFxid1;
+    private TableColumn<Doctor_PatientTableModel, String> PatientDobFxid;
+    @FXML
+    private TableColumn<Doctor_PatientTableModel, String> PatientEmailFxid;
 
     @FXML
-    private TableColumn<PatientTableModel, String> PatientCreateDateFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientFirstNameFxid;
 
     @FXML
-    private DatePicker PatientCreateDate_DpFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientGenderFxid;
 
     @FXML
-    private Button PatientDeleteBtn_fxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientLastNameFxid;
 
     @FXML
-    private TableColumn<PatientTableModel, String> PatientDobFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientMobileFxid;
 
     @FXML
-    private DatePicker PatientDob_DtFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientPhoneFxid;
 
     @FXML
-    private TableColumn<PatientTableModel, String> PatientEmailFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientSerialNoFxid;
 
     @FXML
-    private TextField PatientEmail_TfFxid;
+    private TableColumn<Doctor_PatientTableModel, String> PatientStatusFxid;
 
     @FXML
-    private TableColumn<PatientTableModel, String> PatientFirstNameFxid;
-
+    private TableView<Doctor_PatientTableModel> PatientTableFxid;
     @FXML
-    private TextField PatientFirstName_TfFxid;
+    private TextField keywordTextField;
 
-    @FXML
-    private TableColumn<PatientTableModel, String> PatientGenderFxid;
-
-    @FXML
-    private ComboBox<String> PatientGender_TfFxid;
-
-    @FXML
-    private Button PatientInsertBtn_fxid;
-
-    @FXML
-    private TableColumn<PatientTableModel, String> PatientLastNameFxid;
-
-    @FXML
-    private TextField PatientLastName_TfFxid;
-
-    @FXML
-    private TableColumn<PatientTableModel, String> PatientMobileFxid;
-
-    @FXML
-    private TextField PatientMobile_TfFxid;
-
-    @FXML
-    private TableColumn<PatientTableModel, String> PatientPhoneFxid;
-
-    @FXML
-    private TextField PatientPhone_TfFxid;
-
-    @FXML
-    private Button PatientResetBtn_fxid;
-
-    @FXML
-    private TableColumn<PatientTableModel, String> PatientSerialNoFxid;
-
-    @FXML
-    private TableColumn<PatientTableModel, String> PatientStatusFxid;
-
-    @FXML
-    private ComboBox<String> PatientStatus_CbFxid;
-
-    @FXML
-    private TableView<PatientTableModel> PatientTableFxid;
-
-    @FXML
-    private Button PatientUpdateBtn_fxid;
 
     PatientTableModel patient;
-
-    ObservableList<String> genderList = FXCollections.observableArrayList("Male", "Female", "Neutral");
-    ObservableList<String> bloodList = FXCollections.observableArrayList("O+", "O-", "A+", "A+", "B+", "B-", "AB+", "AB-");
-    ObservableList<String> statusList = FXCollections.observableArrayList("Active", "Inactive");
-
     Connection conn;
 
     public void initialize(URL location, ResourceBundle resources) {
         DatabaseConnect.Connection();
         conn = DatabaseConnect.con;
         fetch_info();
+        search();
+    }
 
-        PatientGender_TfFxid.setItems(genderList);
-        PatientBlood_CbFxid1.setItems(bloodList);
-        PatientStatus_CbFxid.setItems(statusList);
+    public void search()
+
+    {
+        FilteredList<Doctor_PatientTableModel> filteredData = new FilteredList(patientList, b -> true);
+
+        keywordTextField.textProperty().addListener((observable,oldvalue,newvalue)->{
+
+            filteredData.setPredicate(Doctor_PatientTableModel -> {
+
+                if(newvalue.isEmpty() || newvalue==null)
+                {
+                    return true;
+                }
+
+                String searchKeyword = newvalue.toLowerCase();
+
+                if(Doctor_PatientTableModel.getFirstName().toLowerCase().indexOf(searchKeyword) >-1)
+                {
+                    return true;
+                }
+                else if(Doctor_PatientTableModel.getLastName().toLowerCase().indexOf(searchKeyword) >-1)
+                {
+                    return true;
+                }
+                else if(Doctor_PatientTableModel.getPatientId().toLowerCase().indexOf(searchKeyword) >-1)
+                {
+                    return true;
+                }
+                return false;
+
+
+
+
+            });
+
+        });
+
+        SortedList<Doctor_PatientTableModel> sortData = new SortedList<>(filteredData);
+        sortData.comparatorProperty().bind(PatientTableFxid.comparatorProperty());
+
+        PatientTableFxid.setItems(sortData);
+
     }
 
     private void fetch_info() {
@@ -161,7 +156,7 @@ public class Doctor_patientController implements Initializable {
                 String PatientStatus = rs.getString("Status");
                 String PatientId = rs.getString("Status");
 
-                patientList.add(new PatientTableModel(PatientFirstName, PatientLastName, PatientEmail,
+                patientList.add(new Doctor_PatientTableModel(PatientFirstName, PatientLastName, PatientEmail,
                         PatientMobile, PatientPhone, PatientAddress, PatientGender, PatientBloodGroup,
                         PatientDob, PatientCreateDate, PatientStatus,PatientId,PatientSerialNo));
             }
@@ -171,87 +166,7 @@ public class Doctor_patientController implements Initializable {
         }
     }
 
-    public void PatientInsertBtn(ActionEvent actionEvent) throws SQLException {
-        PreparedStatement pst = null;
-        try {
-            String query = "INSERT INTO Patient (FirstName, LastName, EmailAddress,MobileNo,PhoneNo,Address,Gender,BloodGroup,DOB,CreateDate,Status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
-            pst = conn.prepareStatement(query);
-            String firstName = PatientFirstName_TfFxid.getText();
-            String lastName = PatientLastName_TfFxid.getText();
-            String email = PatientEmail_TfFxid.getText();
-            String mobile = PatientMobile_TfFxid.getText();
-            String phone = PatientPhone_TfFxid.getText();
-            String address = PatientAddress_TfFxid.getText();
-            String gender = PatientGender_TfFxid.getSelectionModel().getSelectedItem().toString();
-            String bloodGroup = PatientBlood_CbFxid1.getSelectionModel().getSelectedItem().toString();
-            String status = PatientStatus_CbFxid.getSelectionModel().getSelectedItem().toString();
-            LocalDate dateOfBirth = PatientDob_DtFxid.getValue();
-            LocalDate createDate = PatientCreateDate_DpFxid.getValue();
-
-
-            if (firstName.equals("") || lastName.equals("") || mobile.equals("") || phone.equals("") || address.equals("")) {
-                Notifications.create()
-                        .title("Warning")
-                        .text("Please fillup all the information")
-                        .showError();
-
-            } else {
-                pst.setString(1, firstName);
-                pst.setString(2, lastName);
-                pst.setString(3, email);
-                pst.setString(4, mobile);
-                pst.setString(5, phone);
-                pst.setString(6, address);
-                pst.setString(7, gender);
-                pst.setString(8, bloodGroup);
-                pst.setString(9, status);
-                pst.setDate(10, Date.valueOf(dateOfBirth));
-                pst.setDate(11, Date.valueOf(createDate));
-
-
-                pst.executeUpdate();
-                Notifications.create()
-                        .title("Info")
-                        .text("Added Successfully")
-                        .show();
-                System.out.println("inserted");
-
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
-
-    public void PatientUpdateBtn(ActionEvent actionEvent) {
-    }
-
-    public void DeleteBtn(ActionEvent actionEvent) {
-        PreparedStatement pst = null;
-        try {
-
-            patient=PatientTableFxid.getSelectionModel().getSelectedItem();
-            String sql="DELETE FROM Patient  WHERE Patient.MobileNo=?";
-            pst = conn.prepareStatement(sql);
-            pst.setString(1,patient.getMobileNo());
-            pst.executeUpdate();
-            Notifications.create()
-                    .title("Info")
-                    .text("Deleted Successfully")
-                    .show();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-
-    }
 
     public void BackBtn(ActionEvent actionEvent) throws SQLException, IOException {
         Parent root1 = FXMLLoader.load(getClass().getResource("DoctorDashboard.fxml"));

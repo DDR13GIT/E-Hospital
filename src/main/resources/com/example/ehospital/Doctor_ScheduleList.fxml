@@ -2,18 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -45,110 +39,18 @@
                   <TableColumn fx:id="TimeFxid" minWidth="0.0" prefWidth="119.0" text="Time" />
               </columns>
             </TableView>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="274.0">
-               <children>
-                  <ComboBox fx:id="ScheduleDepartmentCBfxid" onAction="#departmentCBAction" prefHeight="25.0" prefWidth="284.0" promptText="Select Department">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                  <ComboBox fx:id="ScheduleDoctorCBfxid" onAction="#doctorNameCBAction" prefHeight="25.0" prefWidth="288.0" promptText="Select Doctor Name">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                  <ComboBox fx:id="ScheduleDoctorIDCBfxid" prefHeight="25.0" prefWidth="288.0" promptText="Select Doctor ID">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                  <TextField fx:id="ScheduleVisitingHoutTFfxid" promptText="Enter Visitng Hour">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Visiting Days">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Text>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <CheckBox fx:id="checkbox1" mnemonicParsing="false" onAction="#checkBox1Action" text="Saturday">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkbox2" mnemonicParsing="false" onAction="#checkBox2Action" text="Sunday" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkbox3" mnemonicParsing="false" onAction="#checkBox3Action" text="Monday" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkbox4" mnemonicParsing="false" onAction="#checkBox4Action" text="Tuesday" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkbox5" mnemonicParsing="false" onAction="#checkBox5Action" text="Wednesday" GridPane.rowIndex="4">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkbox6" mnemonicParsing="false" onAction="#checkBox6Action" text="Thrusday" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </CheckBox>
-                     </children>
-                  </GridPane>
-               </children>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </VBox>
          </children>
       </HBox>
-      <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
+      <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0" />
+      <HBox layoutX="90.0" layoutY="746.0" prefHeight="27.0" prefWidth="1066.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="86.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#ScheduleInsertBtn" text="Insert">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" wrappingWidth="58.403350830078125">
                <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#ScheduleUpdateBtn" text="Update">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#ScheduleDeleteBtn" text="Delete">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#ScheduleRefreshBtn" text="Refresh">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#ScheduleResetBtn" text="Reset">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></Button>
-         </children></HBox>
+                  <Insets left="100.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="keywordTextField" prefHeight="26.0" prefWidth="760.0" promptText="search keyword" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
