@@ -2,6 +2,8 @@ package com.example.ehospital;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,59 +24,33 @@ import java.util.ResourceBundle;
 public class Doctor_ScheduleController implements Initializable {
 
     @FXML
-    private TableColumn<ScheduleTableModel, String> DepartmentFxid;
+    private TableColumn<Doctor_ScheduleTableModel, String> DepartmentFxid;
 
     @FXML
-    private TableColumn<ScheduleTableModel, String> DoctorIDFxid;
+    private TableColumn<Doctor_ScheduleTableModel, String> DoctorIDFxid;
 
     @FXML
-    private TableColumn<ScheduleTableModel, String> DoctorNameFxid;
+    private TableColumn<Doctor_ScheduleTableModel, String> DoctorNameFxid;
 
     @FXML
-    private TableView<ScheduleTableModel> ScheduleTableFxid;
+    private TableView<Doctor_ScheduleTableModel> ScheduleTableFxid;
+
 
     @FXML
-    private ComboBox<String> ScheduleDepartmentCBfxid;
+    private TableColumn<Doctor_ScheduleTableModel, String> SerialNoFxid;
 
     @FXML
-    private ComboBox<String> ScheduleDoctorCBfxid;
+    private TableColumn<Doctor_ScheduleTableModel, String> TimeFxid;
 
     @FXML
-    private ComboBox<String> ScheduleDoctorIDCBfxid;
-
+    private TableColumn<Doctor_ScheduleTableModel, String> VisitingDaysFxid;
     @FXML
-    private TextField ScheduleVisitingHoutTFfxid;
+    private TextField keywordTextField;
 
-    @FXML
-    private TableColumn<ScheduleTableModel, String> SerialNoFxid;
 
-    @FXML
-    private TableColumn<ScheduleTableModel, String> TimeFxid;
+    ObservableList<Doctor_ScheduleTableModel> scheduleList = FXCollections.observableArrayList();
 
-    @FXML
-    private TableColumn<ScheduleTableModel, String> VisitingDaysFxid;
 
-    @FXML
-    private CheckBox checkbox1;
-
-    @FXML
-    private CheckBox checkbox2;
-
-    @FXML
-    private CheckBox checkbox3;
-
-    @FXML
-    private CheckBox checkbox4;
-
-    @FXML
-    private CheckBox checkbox5;
-
-    @FXML
-    private CheckBox checkbox6;
-
-    ObservableList<ScheduleTableModel> scheduleList = FXCollections.observableArrayList();
-
-    ObservableList<String> checkBoxList = FXCollections.observableArrayList();
 
 
     Connection conn;
@@ -82,71 +58,62 @@ public class Doctor_ScheduleController implements Initializable {
     ResultSet rs;
 
 
-    final ObservableList departmentData = FXCollections.observableArrayList();
-    final ObservableList doctorNameData = FXCollections.observableArrayList();
-    final ObservableList doctorIdData = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DatabaseConnect.Connection();
         conn = DatabaseConnect.con;
         fetch_info();
+search();
 
 
-        departmentComboBoxFillData();
-        ScheduleDepartmentCBfxid.setItems(departmentData);
+    }
+
+    public void search()
+
+    {
+        FilteredList<Doctor_ScheduleTableModel> filteredData = new FilteredList(scheduleList, b -> true);
+
+        keywordTextField.textProperty().addListener((observable,oldvalue,newvalue)->{
+
+            filteredData.setPredicate(Doctor_ScheduleTableModel -> {
+
+                if(newvalue.isEmpty() || newvalue==null)
+                {
+                    return true;
+                }
+
+                String searchKeyword = newvalue.toLowerCase();
+
+                if(Doctor_ScheduleTableModel.getDepartmentName().toLowerCase().indexOf(searchKeyword) >-1)
+                {
+                    return true;
+                }
+                else if(Doctor_ScheduleTableModel.getDoctorName().toLowerCase().indexOf(searchKeyword) >-1)
+                {
+                    return true;
+                }
+                else if(Doctor_ScheduleTableModel.getDoctorId().toLowerCase().indexOf(searchKeyword) >-1)
+                {
+                    return true;
+                }
+                return false;
+
+
+
+
+            });
+
+        });
+
+        SortedList<Doctor_ScheduleTableModel> sortData = new SortedList<>(filteredData);
+        sortData.comparatorProperty().bind(ScheduleTableFxid.comparatorProperty());
+
+        ScheduleTableFxid.setItems(sortData);
 
     }
 
 
-    //    checkBoxList
-   public void checkBox1Action(ActionEvent event) {
-        if (checkbox1.isSelected()) {
-            checkBoxList.add(checkbox1.getText());
-        } else {
-            checkBoxList.remove(checkbox1.getText());
-        }
-    }
-
-    public void checkBox2Action(ActionEvent event) {
-        if (checkbox2.isSelected()) {
-            checkBoxList.add(checkbox2.getText());
-        } else {
-            checkBoxList.remove(checkbox2.getText());
-        }
-    }
-
-    public void checkBox3Action(ActionEvent event) {
-        if (checkbox3.isSelected()) {
-            checkBoxList.add(checkbox3.getText());
-        } else {
-            checkBoxList.remove(checkbox3.getText());
-        }
-    }
-
-    public void checkBox4Action(ActionEvent event) {
-        if (checkbox4.isSelected()) {
-            checkBoxList.add(checkbox4.getText());
-        } else {
-            checkBoxList.remove(checkbox4.getText());
-        }
-    }
-
-    public void checkBox5Action(ActionEvent event) {
-        if (checkbox5.isSelected()) {
-            checkBoxList.add(checkbox5.getText());
-        } else {
-            checkBoxList.remove(checkbox5.getText());
-        }
-    }
-
-    public void checkBox6Action(ActionEvent event) {
-        if (checkbox6.isSelected()) {
-            checkBoxList.add(checkbox6.getText());
-        } else {
-            checkBoxList.remove(checkbox6.getText());
-        }
-    }
 
     public void fetch_info() {
         SerialNoFxid.setCellValueFactory(new PropertyValueFactory<>("SerialNo"));
@@ -172,7 +139,7 @@ public class Doctor_ScheduleController implements Initializable {
                 String visitingDays = rs.getString("VisitingDays");
                 String time = rs.getString("Time");
 
-                scheduleList.add(new ScheduleTableModel( departmentName, doctorName, doctorId,visitingDays, time, serialNo));
+                scheduleList.add(new Doctor_ScheduleTableModel( departmentName, doctorName, doctorId,visitingDays, time, serialNo));
             }
             ScheduleTableFxid.setItems(scheduleList);
         } catch (Exception e) {
@@ -181,70 +148,6 @@ public class Doctor_ScheduleController implements Initializable {
     }
 
     ScheduleTableModel scheduleTableModel1;
-
-    public void departmentComboBoxFillData() {
-        departmentData.clear();
-        String query = " select DepartmentName from Department";
-        try {
-            pst = conn.prepareStatement(query);
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                departmentData.add(rs.getString("DepartmentName"));
-            }
-            pst.close();
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void departmentCBAction(ActionEvent event) {
-        String selectedItem = ScheduleDepartmentCBfxid.getSelectionModel().getSelectedItem().toString();
-        doctorNameComboBoxFillData(selectedItem);
-    }
-
-    public void doctorNameComboBoxFillData(String selectedItem) {
-        doctorNameData.clear();
-        String query = "select FullName from DoctorTable where " + "Department = '" + selectedItem + "'";
-
-        try {
-            pst = conn.prepareStatement(query);
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                doctorNameData.add(rs.getString("Fullname"));
-            }
-            pst.close();
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error in fetching data from database, cz no data selected in prev combo box");
-        }
-        ScheduleDoctorCBfxid.setItems(doctorNameData);
-    }
-    public void doctorNameCBAction(ActionEvent event) {
-        String selectedItem = ScheduleDoctorCBfxid.getSelectionModel().getSelectedItem().toString();
-        doctorIdComboBoxFillData(selectedItem);
-    }
-
-    public void doctorIdComboBoxFillData(String selectedItem) {
-
-        doctorIdData.clear();
-        String query = "select DoctorId from DoctorTable where " + "FullName = '" + selectedItem + "'";
-        try {
-            pst = conn.prepareStatement(query);
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                doctorIdData.add(rs.getString("DoctorId"));
-            }
-            pst.close();
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        ScheduleDoctorIDCBfxid.setItems(doctorIdData);
-    }
 
     @FXML
     void BackBtn(ActionEvent event) throws SQLException, IOException {
@@ -255,86 +158,8 @@ public class Doctor_ScheduleController implements Initializable {
         window.show();
     }
 
-    @FXML
-    void ScheduleDeleteBtn(ActionEvent event) {
-        PreparedStatement pst = null;
-        Connection con;
-        try {
-
-            scheduleTableModel1 = ScheduleTableFxid.getSelectionModel().getSelectedItem();
-            String sql = "DELETE FROM Schedule  WHERE Schedule.DepartmentName=?";
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, scheduleTableModel1.getDepartmentName());
-            pst.executeUpdate();
-            Notifications.create()
-                    .title("Info")
-                    .text("Deleted Successfully")
-                    .show();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    void ScheduleInsertBtn(ActionEvent event) {
-        PreparedStatement pst = null;
-        try {
-            String query = " INSERT INTO Schedule (DepartmentName,DoctorName,DoctorId,VisitingDays,Time) VALUES(?,?,?,?,?)";
-
-            pst = conn.prepareStatement(query);
-
-            String scheduleDept = ScheduleDepartmentCBfxid.getSelectionModel().getSelectedItem().toString();
-            String doctorName = ScheduleDoctorCBfxid.getSelectionModel().getSelectedItem().toString();
-            String doctorID = ScheduleDoctorIDCBfxid.getSelectionModel().getSelectedItem().toString();
-            String scheduleVisitingTime = ScheduleVisitingHoutTFfxid.getText();
 
 
 
-            if (ScheduleVisitingHoutTFfxid.equals("")) {
-                Notifications.create()
-                        .title("Warning")
-                        .text("Please fillup all the information")
-                        .showError();
-
-            } else {
-
-                pst.setString(1, scheduleDept);
-                pst.setString(2, doctorName);
-                pst.setString(3, doctorID);
-                pst.setString(4, checkBoxList.toString());
-                pst.setString(5, scheduleVisitingTime);
-
-                pst.executeUpdate();
-                Notifications.create()
-                        .title("Info")
-                        .text("Added Successfully")
-                        .show();
-                System.out.println("inserted");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-    }
-
-
-    @FXML
-    void ScheduleRefreshBtn(ActionEvent event) {
-        scheduleList.clear();
-        fetch_info();
-    }
-
-    @FXML
-    void ScheduleResetBtn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ScheduleUpdateBtn(ActionEvent event) {
-
-    }
 
 }
