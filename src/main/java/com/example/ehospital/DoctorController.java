@@ -264,6 +264,7 @@ public class DoctorController implements Initializable {
                         .text("Added Successfully")
                         .show();
                 System.out.println("inserted");
+
             }
 
         } catch (Exception e) {

@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="797.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.patientController">
     <children>
@@ -107,7 +108,7 @@
                 </VBox>
             </children>
         </HBox>
-        <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
+        <HBox layoutX="988.0" layoutY="746.0" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="33.0">
             <children>
                 <Button fx:id="PatientUpdateBtn_fxid" mnemonicParsing="false" onAction="#PatientUpdateBtn" text="Update">
                     <HBox.margin>
@@ -127,5 +128,36 @@
                 <Button fx:id="PatientResetBtn_fxid" mnemonicParsing="false" text="Reset" />
             </children>
         </HBox>
+      <HBox layoutX="1008.0" layoutY="766.0" style="-fx-background-color: #035956; -fx-border-color: #f4f4f4;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Text fill="#e8e8e8" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to database ||">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="#e8e8e8" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Results ||">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="aggregateResult" fill="#e8e8e8" strokeType="OUTSIDE" strokeWidth="0.0" text="DATA">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+         <padding>
+            <Insets bottom="2.0" top="2.0" />
+         </padding>
+      </HBox>
     </children>
 </AnchorPane>
