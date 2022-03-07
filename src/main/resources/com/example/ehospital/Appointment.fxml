@@ -78,36 +78,39 @@
                      </VBox.margin>
                   </DatePicker>
                   <TextField fx:id="ApnAppoinmentTime_tf" promptText="Enter Appointment Time" VBox.vgrow="ALWAYS" />
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#AppointmentUpdateBTN" text="Update">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#AppointmentInsertBTN" text="Insert">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#AppointmentDeleteBTN" text="Delete">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#AppointmentResetBTN" text="Reset" />
+                        <Button mnemonicParsing="false" onAction="#AppointmentRefreshBTN" text="Refresh">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </VBox>
-         </children>
-      </HBox>
-      <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#AppointmentUpdateBTN" text="Update">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#AppointmentInsertBTN" text="Insert">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#AppointmentDeleteBTN" text="Delete">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#AppointmentResetBTN" text="Reset" />
-            <Button mnemonicParsing="false" onAction="#AppointmentRefreshBTN" text="Refresh">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
    </children>

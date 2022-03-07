@@ -40,6 +40,7 @@ public class AdminDashboardController {
         Parent root1 = FXMLLoader.load(getClass().getResource("PatientList.fxml"));
         Scene scene1 = new Scene(root1);
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setResizable(true);
         window.setScene(scene1);
         window.show();
     }
@@ -63,5 +64,15 @@ public class AdminDashboardController {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene1);
         window.show();
+    }
+
+    public void logoutbtn(ActionEvent actionEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("signIn.fxml"));
+      Scene scene = new Scene(root);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+
     }
 }

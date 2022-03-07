@@ -127,7 +127,7 @@ search();
 
         try {
             Statement st = conn.createStatement();
-            String fetch_query = "select * from Schedule";
+            String fetch_query = "select * from Schedule where DoctorId= '\"+sharedname+\"'";
             ResultSet rs = st.executeQuery(fetch_query);
 
             while (rs.next()) {

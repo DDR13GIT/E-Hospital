@@ -90,7 +90,7 @@ public class Doctor_AppointmentController implements Initializable {
 
         try {
             Statement st = conn.createStatement();
-            String fetch_query = "select * from Appointment";
+            String fetch_query = "select * from Appointment where DoctorId= '\"+sharedname+\"'";
             ResultSet rs = st.executeQuery(fetch_query);
 
             while (rs.next()) {

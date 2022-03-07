@@ -35,8 +35,11 @@ public class BillingController implements Initializable {
     public ComboBox<String> CurrentFxid;
 
     @FXML
-    public DatePicker DateFxid;
+    private ComboBox<String> AppFxid ;
 
+    @FXML
+    public DatePicker DateFxid;
+public  String pts;
     @FXML
     private TableView<BillingTableModel> BillingTableFxid;
     @FXML
@@ -65,6 +68,7 @@ public class BillingController implements Initializable {
     @FXML
     private TableColumn<BillingTableModel, String>  StatusFxid;
     BillingTableModel dept;
+    final ObservableList ApnId = FXCollections.observableArrayList();
 
     Connection conn;
     int index=-1;
@@ -76,6 +80,31 @@ public class BillingController implements Initializable {
         fetch_info();
         ObservableList<String> list = FXCollections.observableArrayList("Active","Inactive");
         CurrentFxid.setItems(list);
+
+
+    }
+    public void filldata(String pt) {
+        ApnId.clear();
+        PreparedStatement pst=null;
+        ResultSet rs;
+
+
+        String query = " select AppointmentID from Appointment where PatientId='"+pt+"' ";
+
+        try {
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                ApnId.add(rs.getString("AppointmentID"));
+            }
+            pst.close();
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        AppFxid.setItems(ApnId);
+
     }
 
     public void fetch_info() {
@@ -118,10 +147,12 @@ public class BillingController implements Initializable {
     public void InsertBtn(ActionEvent actionEvent)  throws SQLException {
         PreparedStatement pst = null;
         PreparedStatement pst2 = null;
+        PreparedStatement pst3= null;
         try {
-            String query = " INSERT INTO Billing ( PatientId,BillDate,BillId,AdditionalBill,Discount,Status) VALUES(?,?,?,?,?,?)";
+            String query = " INSERT INTO Billing ( PatientId,BillDate,BillId,AdditionalBill,Discount,Status,AppointmentID) VALUES(?,?,?,?,?,?,?)";
             pst = conn.prepareStatement(query);
             String ptid=PatientFxid.getText();
+            String star= AppFxid.getSelectionModel().getSelectedItem().toString();
             LocalDate bd=DateFxid.getValue();
             String disc= DiscountFxid.getText();
             int ds=Integer.parseInt(disc);
@@ -140,7 +171,7 @@ public class BillingController implements Initializable {
             }
             String blid= sb.toString();
 
-            if(ptid.equals("") || bd.equals("")||sta.equals("")||disc.equals("")||adb.equals(""))
+            if(ptid.equals("") || bd.equals("")||star.equals("")||sta.equals("")||disc.equals("")||adb.equals(""))
             {
                 Notifications.create()
                         .title("Warning")
@@ -157,16 +188,16 @@ public class BillingController implements Initializable {
                 pst.setInt(4,addbi);
                 pst.setInt(5,ds);
                 pst.setString(6,sta);
+                pst.setString(7,star);
                 pst.executeUpdate();
-                ResultSet rs = conn.createStatement().executeQuery(   " SELECT  Appointment.AppointmentID as AppointmentID2 ,Appointment.DoctorId as doc  FROM Appointment,Billing WHERE  Billing.PatientId=Appointment.PatientId and Billing.BillDate=Appointment.AppointmentDate ");
+                ResultSet rs = conn.createStatement().executeQuery(   " SELECT  Appointment.AppointmentID as AppointmentID2 ,Appointment.DoctorId as doc  FROM Appointment,Billing WHERE  Billing.PatientId=Appointment.PatientId and Billing.BillDate=Appointment.AppointmentDate  ");
                 String apid=null;
                 String docid=null;
                 while (rs.next())
                 {
                     apid=rs.getString("AppointmentID2");
                     docid=rs.getString("doc");
-                    System.out.println(apid);
-                    System.out.println(docid);
+
                 }
                 ResultSet rs2 = conn.createStatement().executeQuery(   " SELECT   DoctorTable.Fees as docfee FROM DoctorTable where DoctorTable.DoctorId= '"+docid+"' " );
                 String docff=null;
@@ -182,10 +213,9 @@ public class BillingController implements Initializable {
                 double totals=(total*ds2);
                 int totalfinal=(int) (total-totals);
                 System.out.println(totalfinal);
-                String query2 = " UPDATE Billing set AppointmentID= '"+apid+"' , Total= '"+totalfinal+"' WHERE  Billing.PatientId='"+ptid+"' and Billing.BillDate='"+bd+"'  ";
+                String query2 = " UPDATE Billing set Total= '"+totalfinal+"' WHERE  Billing.PatientId='"+ptid+"' and Billing.BillDate='"+bd+"'  ";
                 pst2 = conn.prepareStatement(query2);
                 pst2.executeUpdate();
-
 
 
 
@@ -286,5 +316,15 @@ public class BillingController implements Initializable {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene1);
         window.show();
+    }
+
+    public void SelectItem(ActionEvent actionEvent) {
+
+
+    }
+
+    public void sendDataPatientId(ActionEvent actionEvent) {
+        String p=PatientFxid.getText();
+        filldata(p);
     }
 }

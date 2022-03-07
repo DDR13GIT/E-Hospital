@@ -46,11 +46,21 @@
             </TableView>
             <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="283.0">
                <children>
-                  <TextField fx:id="PatientFxid" prefHeight="25.0" promptText="Enter Patient ID">
+                  <TextField fx:id="PatientFxid" onTouchReleased="#SelectItem" prefHeight="25.0" promptText="Enter Patient ID">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#sendDataPatientId" text="send data">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
-                  </TextField>
+                  </Button>
+                  <ComboBox fx:id="AppFxid" prefHeight="25.0" prefWidth="288.0" promptText="Select Appointment ID">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
                   <DatePicker fx:id="DateFxid" prefHeight="25.0" prefWidth="291.0" promptText="Select Bill Date">
                      <VBox.margin>
                         <Insets bottom="20.0" />
