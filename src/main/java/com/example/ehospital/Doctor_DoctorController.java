@@ -22,6 +22,8 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+import static com.example.ehospital.MainController.sharedname;
+
 public class Doctor_DoctorController implements Initializable {
 
     public TextField keywordTextField;
@@ -98,7 +100,7 @@ public class Doctor_DoctorController implements Initializable {
 
         try {
             Statement st = conn.createStatement();
-            String fetch_query = "select * from DoctorTable";
+            String fetch_query = "select * from DoctorTable  ";
             ResultSet rs = st.executeQuery(fetch_query);
 
             while (rs.next()) {

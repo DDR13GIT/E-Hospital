@@ -200,7 +200,7 @@
                   <Insets right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Button layoutX="1212.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-radius: 5;" text="Logout">
+                  <Button layoutX="1212.0" layoutY="12.0" mnemonicParsing="false" onAction="#logoutbtn" style="-fx-background-radius: 5;" text="Logout">
                      <font>
                         <Font size="14.0" />
                      </font>

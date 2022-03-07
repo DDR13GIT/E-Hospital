@@ -49,4 +49,15 @@ public class DoctorDashboardController {
         window.show();
     }
 
+    public void logoutbtn2(ActionEvent actionEvent) throws IOException {
+
+
+            Parent root = FXMLLoader.load(getClass().getResource("signIn.fxml"));
+            Scene scene = new Scene(root);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+
+
+    }
 }

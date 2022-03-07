@@ -37,6 +37,7 @@ public class MainController  implements Initializable {
     public Button SigninBtn;
     PreparedStatement pst = null;
     ResultSet rs;
+    public static String sharedname;
 
 
 
@@ -72,12 +73,14 @@ public class MainController  implements Initializable {
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
                         stage.show();
+                        sharedname=uname;
                     }else if(s.equals("Doctor")){
                         Parent root = FXMLLoader.load(getClass().getResource("DoctorDashboard.fxml"));
                         Stage stage = (Stage)(Window)SigninBtn.getScene().getWindow();
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
                         stage.show();
+                        sharedname=uname;
                     }
 
                 } else {

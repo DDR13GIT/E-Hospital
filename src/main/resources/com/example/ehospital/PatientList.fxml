@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="797.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.patientController">
+<AnchorPane prefHeight="700.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ehospital.patientController">
     <children>
         <HBox alignment="CENTER" AnchorPane.topAnchor="20.0">
             <children>
@@ -100,31 +100,34 @@
                      </VBox.margin>
                   </DatePicker>
                   <ComboBox fx:id="PatientStatus_CbFxid" prefHeight="26.0" prefWidth="299.0" promptText="Enter Current Status" />
+                    <HBox>
+                        <children>
+                            <Button fx:id="PatientUpdateBtn_fxid" mnemonicParsing="false" onAction="#PatientUpdateBtn" text="Update">
+                                <HBox.margin>
+                                    <Insets right="10.0" />
+                                </HBox.margin>
+                            </Button>
+                            <Button fx:id="PatientInsertBtn_fxid" mnemonicParsing="false" onAction="#PatientInsertBtn" text="Insert">
+                                <HBox.margin>
+                                    <Insets right="10.0" />
+                                </HBox.margin>
+                            </Button>
+                            <Button fx:id="PatientDeleteBtn_fxid" mnemonicParsing="false" text="Delete">
+                                <HBox.margin>
+                                    <Insets right="10.0" />
+                                </HBox.margin>
+                            </Button>
+                            <Button fx:id="PatientResetBtn_fxid" mnemonicParsing="false" text="Reset" />
+                        </children>
+                     <VBox.margin>
+                        <Insets top="59.0" />
+                     </VBox.margin>
+                    </HBox>
                     </children>
                     <HBox.margin>
                         <Insets left="20.0" />
                     </HBox.margin>
                 </VBox>
-            </children>
-        </HBox>
-        <HBox layoutX="988.0" layoutY="746.0" AnchorPane.rightAnchor="33.0">
-            <children>
-                <Button fx:id="PatientUpdateBtn_fxid" mnemonicParsing="false" onAction="#PatientUpdateBtn" text="Update">
-                    <HBox.margin>
-                        <Insets right="10.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="PatientInsertBtn_fxid" mnemonicParsing="false" onAction="#PatientInsertBtn" text="Insert">
-                    <HBox.margin>
-                        <Insets right="10.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="PatientDeleteBtn_fxid" mnemonicParsing="false" text="Delete">
-                    <HBox.margin>
-                        <Insets right="10.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="PatientResetBtn_fxid" mnemonicParsing="false" text="Reset" />
             </children>
         </HBox>
     </children>
